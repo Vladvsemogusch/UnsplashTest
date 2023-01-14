@@ -8,5 +8,5 @@ interface UnsplashService {
 
     @Headers("Authorization: Client-ID A_EZ1V9bRfQCRXwEmDK_0gVs6nRwXIbrxc8Rd7OB3N0")
     @GET("photos")
-    fun getLatestPhotos(): List<PhotoApiModel>
+    suspend fun getLatestPhotos(): List<PhotoApiModel>
 }
