@@ -11,7 +11,8 @@ class PhotoApiModelMapper @Inject constructor() {
             Photo(
                 id = id ?: throw IllegalArgumentException("Photo id is null"),
                 description = description,
-                url = urls?.regular ?: throw IllegalArgumentException("Photo url is null")
+                url = urls?.regular ?: throw IllegalArgumentException("Photo url is null"),
+                authorName = user?.name ?: throw IllegalArgumentException("User or user name is null"),
             )
         }
     }
