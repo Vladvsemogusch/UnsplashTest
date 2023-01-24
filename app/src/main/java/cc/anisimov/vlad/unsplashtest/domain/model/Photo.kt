@@ -5,4 +5,5 @@ data class Photo(
     val description: String?,
     val url: String,
     val authorName: String,
+    val isBookmarked: Boolean
 )

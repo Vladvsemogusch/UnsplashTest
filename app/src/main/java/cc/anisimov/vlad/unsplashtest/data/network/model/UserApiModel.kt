@@ -1,4 +1,4 @@
-package cc.anisimov.vlad.unsplashtest.data.model
+package cc.anisimov.vlad.unsplashtest.data.network.model
 
 
 import com.google.gson.annotations.SerializedName

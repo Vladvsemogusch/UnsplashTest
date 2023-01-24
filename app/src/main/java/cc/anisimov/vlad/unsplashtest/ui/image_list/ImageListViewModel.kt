@@ -2,6 +2,8 @@ package cc.anisimov.vlad.unsplashtest.ui.image_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cc.anisimov.vlad.unsplashtest.domain.interactor.AddPhotoBookmarkInteractor
+import cc.anisimov.vlad.unsplashtest.domain.interactor.DeletePhotoBookmarkInteractor
 import cc.anisimov.vlad.unsplashtest.domain.interactor.GetLatestPhotosInteractor
 import cc.anisimov.vlad.unsplashtest.domain.model.Photo
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,9 +14,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ImageListViewModel @Inject constructor(
-    private val getLatestPhotosInteractor: GetLatestPhotosInteractor
-) :
-    ViewModel() {
+    private val getLatestPhotosInteractor: GetLatestPhotosInteractor,
+    private val addPhotoBookmarkInteractor: AddPhotoBookmarkInteractor,
+    private val deletePhotoBookmarkInteractor: DeletePhotoBookmarkInteractor
+) : ViewModel() {
 
     private val _latestPhotosFlow = MutableStateFlow(listOf<Photo>())
     val latestPhotosFlow = _latestPhotosFlow.asStateFlow()
@@ -23,5 +26,21 @@ class ImageListViewModel @Inject constructor(
         viewModelScope.launch {
             _latestPhotosFlow.value = getLatestPhotosInteractor()
         }
+    }
+
+    fun onBookmarkClick(photo: Photo) {
+        viewModelScope.launch {
+            if (photo.isBookmarked) {
+                deletePhotoBookmarkInteractor(photo.id)
+            } else {
+                addPhotoBookmarkInteractor(photo.id)
+            }
+        }
+        //  Update current list
+        val currentPhotoList = latestPhotosFlow.value.toMutableList()
+        val photoIndex = currentPhotoList.indexOf(photo)
+        currentPhotoList.removeAt(photoIndex)
+        currentPhotoList.add(photoIndex, photo.copy(isBookmarked = !photo.isBookmarked))
+        _latestPhotosFlow.value = currentPhotoList
     }
 }

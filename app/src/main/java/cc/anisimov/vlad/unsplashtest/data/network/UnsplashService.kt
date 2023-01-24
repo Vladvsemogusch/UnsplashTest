@@ -1,6 +1,6 @@
 package cc.anisimov.vlad.unsplashtest.data.network
 
-import cc.anisimov.vlad.unsplashtest.data.model.PhotoApiModel
+import cc.anisimov.vlad.unsplashtest.data.network.model.PhotoApiModel
 import retrofit2.http.GET
 import retrofit2.http.Headers
 
