@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,6 +48,11 @@ class ImageListFragment : Fragment() {
         viewModel.latestPhotosFlow.launchAndCollect(this) {
             photosAdapter.submitList(it)
         }
+
+        viewModel.isLoadingFlow.launchAndCollect(this) {
+            onLoading(it)
+        }
+
     }
 
     override fun onDestroyView() {
@@ -56,6 +62,13 @@ class ImageListFragment : Fragment() {
 
     private fun onPhotoBookmarkClick(photo: Photo) {
         viewModel.onBookmarkClick(photo)
+    }
+
+    private fun onLoading(isLoading: Boolean) {
+        with(binding) {
+            rvPhotos.isVisible = !isLoading
+            pbLoading.isVisible = isLoading
+        }
     }
 
 }

@@ -19,12 +19,17 @@ class ImageListViewModel @Inject constructor(
     private val deletePhotoBookmarkInteractor: DeletePhotoBookmarkInteractor
 ) : ViewModel() {
 
+    private val _isLoadingFlow = MutableStateFlow(false)
+    val isLoadingFlow = _isLoadingFlow.asStateFlow()
+
     private val _latestPhotosFlow = MutableStateFlow(listOf<Photo>())
     val latestPhotosFlow = _latestPhotosFlow.asStateFlow()
 
     init {
         viewModelScope.launch {
+            _isLoadingFlow.value = true
             _latestPhotosFlow.value = getLatestPhotosInteractor()
+            _isLoadingFlow.value = false
         }
     }
 
