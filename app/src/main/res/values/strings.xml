@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Unsplash Test</string>
+    <string name="author_name">by %1$s</string>
 </resources>
