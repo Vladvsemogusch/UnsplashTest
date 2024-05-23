@@ -20,7 +20,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun getPhotoBookmarkDao(): PhotoBookmarkDao
 
     companion object {
-        const val DATABASE_NAME = "app_database"
+        private const val DATABASE_NAME = "app_database"
 
         fun createInstance(context: Context): AppDatabase {
             return Room.databaseBuilder(

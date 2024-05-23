@@ -42,10 +42,10 @@ class ImageListViewModel @Inject constructor(
             }
         }
         //  Update current list
-        val currentPhotoList = latestPhotosFlow.value.toMutableList()
-        val photoIndex = currentPhotoList.indexOf(photo)
-        currentPhotoList.removeAt(photoIndex)
-        currentPhotoList.add(photoIndex, photo.copy(isBookmarked = !photo.isBookmarked))
-        _latestPhotosFlow.value = currentPhotoList
+        val photoListCopy = latestPhotosFlow.value.toMutableList()
+        val photoIndex = photoListCopy.indexOf(photo)
+        photoListCopy.removeAt(photoIndex)
+        photoListCopy.add(photoIndex, photo.copy(isBookmarked = !photo.isBookmarked))
+        _latestPhotosFlow.value = photoListCopy
     }
 }
