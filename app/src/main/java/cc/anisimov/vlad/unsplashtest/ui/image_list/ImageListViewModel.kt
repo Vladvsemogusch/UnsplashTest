@@ -8,7 +8,9 @@ import cc.anisimov.vlad.unsplashtest.domain.interactor.GetLatestPhotosInteractor
 import cc.anisimov.vlad.unsplashtest.domain.model.Photo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,23 +19,29 @@ class ImageListViewModel @Inject constructor(
     private val getLatestPhotosInteractor: GetLatestPhotosInteractor,
     private val addPhotoBookmarkInteractor: AddPhotoBookmarkInteractor,
     private val deletePhotoBookmarkInteractor: DeletePhotoBookmarkInteractor
-) : ViewModel() {
+) : ViewModel(), ImageListScreenActions {
 
-    private val _isLoadingFlow = MutableStateFlow(false)
-    val isLoadingFlow = _isLoadingFlow.asStateFlow()
+    private val isLoadingFlow = MutableStateFlow(false)
 
-    private val _latestPhotosFlow = MutableStateFlow(listOf<Photo>())
-    val latestPhotosFlow = _latestPhotosFlow.asStateFlow()
+    private val latestPhotosFlow = MutableStateFlow(listOf<Photo>())
+
+    val screenState = combine(isLoadingFlow, latestPhotosFlow) { isLoading, latestPhotos ->
+        if (isLoading) {
+            ImageListScreenState.Loading
+        } else {
+            ImageListScreenState.Content(latestPhotos)
+        }
+    }.stateIn(viewModelScope, SharingStarted.Eagerly, ImageListScreenState.Loading)
 
     init {
         viewModelScope.launch {
-            _isLoadingFlow.value = true
-            _latestPhotosFlow.value = getLatestPhotosInteractor()
-            _isLoadingFlow.value = false
+            isLoadingFlow.value = true
+            latestPhotosFlow.value = getLatestPhotosInteractor()
+            isLoadingFlow.value = false
         }
     }
 
-    fun onBookmarkClick(photo: Photo) {
+    override fun onBookmarkClick(photo: Photo) {
         viewModelScope.launch {
             if (photo.isBookmarked) {
                 deletePhotoBookmarkInteractor(photo.id)
@@ -46,6 +54,6 @@ class ImageListViewModel @Inject constructor(
         val photoIndex = photoListCopy.indexOf(photo)
         photoListCopy.removeAt(photoIndex)
         photoListCopy.add(photoIndex, photo.copy(isBookmarked = !photo.isBookmarked))
-        _latestPhotosFlow.value = photoListCopy
+        latestPhotosFlow.value = photoListCopy
     }
 }

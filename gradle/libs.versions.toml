@@ -4,6 +4,7 @@ kotlin = "1.9.21"
 compose = "1.6.7"
 compose-compiler = "1.5.6"
 hilt = "2.51.1"
+hilt-navigation-compose = "1.2.0"
 compose-material3 = "1.2.1"
 lifecycle-compose = "2.7.0"
 androidx-activity-compose = "1.9.0"
@@ -12,7 +13,7 @@ compose-destinations = "1.10.2"
 coroutines = "1.7.3"
 core-desugaring = "2.0.4"
 retrofit = "2.9.0"
-coil = "2.2.2"
+coil = "2.6.0"
 room = "2.6.1"
 
 androidx-core = "1.9.0"
@@ -59,6 +60,7 @@ retrofit-converter = { module = "com.squareup.retrofit2:converter-gson", version
 
 # Coil
 coil = { module="io.coil-kt:coil", version.ref = "coil"}
+coil-compose = { module="io.coil-kt:coil-compose", version.ref = "coil"}
 
 # Room
 room = { module="androidx.room:room-runtime", version.ref = "room"}
@@ -66,6 +68,7 @@ room-ktx = { module="androidx.room:room-ktx", version.ref = "room"}
 room-compiler = { module="androidx.room:room-compiler", version.ref = "room"}
 
 core-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "core-desugaring" }
+hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
 
 
 [plugins]

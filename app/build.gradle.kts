@@ -72,4 +72,6 @@ dependencies {
     implementation(libs.jetpack.navigation.fragment)
     implementation(libs.jetpack.navigation.ui)
     implementation(libs.coil)
+    implementation(libs.coil.compose)
+    implementation(libs.hilt.navigation.compose)
 }
