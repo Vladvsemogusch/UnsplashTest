@@ -12,9 +12,10 @@
         android:theme="@style/Theme.UnsplashTest"
         tools:targetApi="31">
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.base.MainActivity"
             android:screenOrientation="portrait"
-            android:exported="true">
+            android:exported="true"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

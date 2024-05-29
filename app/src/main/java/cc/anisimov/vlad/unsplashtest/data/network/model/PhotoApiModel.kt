@@ -5,27 +5,27 @@ import com.google.gson.annotations.SerializedName
 
 data class PhotoApiModel(
     @SerializedName("blur_hash")
-    val blurHash: String?,
+    val blurHash: String,
     @SerializedName("color")
-    val color: String?,
+    val color: String,
     @SerializedName("created_at")
-    val createdAt: String?,
+    val createdAt: String,
     @SerializedName("description")
     val description: String?,
     @SerializedName("height")
-    val height: Int?,
+    val height: Int,
     @SerializedName("id")
-    val id: String?,
+    val id: String,
     @SerializedName("liked_by_user")
-    val likedByUser: Boolean?,
+    val likedByUser: Boolean,
     @SerializedName("likes")
-    val likes: Int?,
+    val likes: Int,
     @SerializedName("updated_at")
-    val updatedAt: String?,
+    val updatedAt: String,
     @SerializedName("urls")
-    val urls: UrlsApiModel?,
+    val urls: UrlsApiModel,
     @SerializedName("user")
-    val user: UserApiModel?,
+    val user: UserApiModel,
     @SerializedName("width")
-    val width: Int?
+    val width: Int
 )

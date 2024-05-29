@@ -1,4 +1,4 @@
-package cc.anisimov.vlad.unsplashtest.ui.image_list
+package cc.anisimov.vlad.unsplashtest.ui.feature.image_list
 
 import cc.anisimov.vlad.unsplashtest.domain.model.Photo
 

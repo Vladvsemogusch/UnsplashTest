@@ -1,8 +1,9 @@
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+    id(libs.plugins.kotlin.parcelize.get().pluginId)
 }
 
 android {
@@ -40,38 +41,36 @@ android {
         jvmTarget = "11"
     }
 
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
+    //    Compose
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3)
     implementation(libs.androidx.activity.compose)
-    debugImplementation(libs.compose.ui.tooling)
+    implementation(libs.lifecycle.compose)
+    implementation(libs.material)
+    //  Compose Destinations
     implementation(libs.compose.destinations.core)
     ksp(libs.compose.destinations.ksp)
+    // Hilt
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
-    implementation(libs.lifecycle.compose)
+    implementation(libs.hilt.navigation.compose)
+    // Retrofit
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter)
+    // Room
     implementation(libs.room)
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
+    //  Desugaring
     coreLibraryDesugaring(libs.core.desugaring)
+    //  Coroutines
     implementation(libs.kotlin.coroutines)
-    implementation(libs.androidx.core)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.lifecycle.livedata.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.jetpack.navigation.fragment)
-    implementation(libs.jetpack.navigation.ui)
+    //  Coil
     implementation(libs.coil)
     implementation(libs.coil.compose)
-    implementation(libs.hilt.navigation.compose)
+
 }

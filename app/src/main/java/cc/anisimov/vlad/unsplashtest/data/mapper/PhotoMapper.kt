@@ -5,16 +5,16 @@ import cc.anisimov.vlad.unsplashtest.data.network.model.PhotoApiModel
 import cc.anisimov.vlad.unsplashtest.domain.model.Photo
 import javax.inject.Inject
 
-class PhotoMapper @Inject constructor() {
+class PhotoMapper @Inject constructor(private val userMapper: UserMapper) {
 
     fun map(photoApiModel: PhotoApiModel, photoBookmark: PhotoBookmarkEntity?): Photo {
         return with(photoApiModel) {
             Photo(
-                id = id ?: throw IllegalArgumentException("Photo id is null"),
+                id = id,
                 description = description,
-                url = urls?.regular ?: throw IllegalArgumentException("Photo url is null"),
-                authorName = user?.name
-                    ?: throw IllegalArgumentException("User or user name is null"),
+                url = urls.regular ?: throw IllegalArgumentException("Photo url is null"),
+                authorName = user.name,
+                author = userMapper.map(user),
                 isBookmarked = photoBookmark != null
             )
         }

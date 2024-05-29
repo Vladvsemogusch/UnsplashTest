@@ -1,11 +1,12 @@
-package cc.anisimov.vlad.unsplashtest.ui.image_list
+package cc.anisimov.vlad.unsplashtest.ui.feature.image_list
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cc.anisimov.vlad.unsplashtest.domain.interactor.AddPhotoBookmarkInteractor
 import cc.anisimov.vlad.unsplashtest.domain.interactor.DeletePhotoBookmarkInteractor
 import cc.anisimov.vlad.unsplashtest.domain.interactor.GetLatestPhotosInteractor
 import cc.anisimov.vlad.unsplashtest.domain.model.Photo
+import cc.anisimov.vlad.unsplashtest.domain.model.User
+import cc.anisimov.vlad.unsplashtest.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -19,7 +20,7 @@ class ImageListViewModel @Inject constructor(
     private val getLatestPhotosInteractor: GetLatestPhotosInteractor,
     private val addPhotoBookmarkInteractor: AddPhotoBookmarkInteractor,
     private val deletePhotoBookmarkInteractor: DeletePhotoBookmarkInteractor
-) : ViewModel(), ImageListScreenActions {
+) : BaseViewModel(), ImageListScreenActions {
 
     private val isLoadingFlow = MutableStateFlow(false)
 
@@ -55,5 +56,9 @@ class ImageListViewModel @Inject constructor(
         photoListCopy.removeAt(photoIndex)
         photoListCopy.add(photoIndex, photo.copy(isBookmarked = !photo.isBookmarked))
         latestPhotosFlow.value = photoListCopy
+    }
+
+    override fun onAuthorClick(author: User) {
+        sendEvent(ImageListScreenEvent.GoToAuthorProfile(author))
     }
 }

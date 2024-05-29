@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Unsplash Test</string>
-    <string name="author_name">by %1$s</string>
+    <string name="bio">Biography</string>
+    <string name="author_profile">Author Profile</string>
 </resources>

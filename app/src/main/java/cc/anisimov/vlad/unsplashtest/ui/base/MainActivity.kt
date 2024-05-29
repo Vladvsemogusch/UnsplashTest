@@ -1,4 +1,4 @@
-package cc.anisimov.vlad.unsplashtest.ui.main
+package cc.anisimov.vlad.unsplashtest.ui.base
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -17,7 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.IntOffset
-import cc.anisimov.vlad.unsplashtest.ui.image_list.NavGraphs
+import cc.anisimov.vlad.unsplashtest.ui.feature.NavGraphs
 import cc.anisimov.vlad.unsplashtest.ui.theme.UnsplashTestTheme
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.ramcosta.composedestinations.DestinationsNavHost
