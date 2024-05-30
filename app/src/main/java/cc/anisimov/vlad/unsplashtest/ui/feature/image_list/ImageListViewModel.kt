@@ -7,6 +7,7 @@ import cc.anisimov.vlad.unsplashtest.domain.interactor.GetLatestPhotosInteractor
 import cc.anisimov.vlad.unsplashtest.domain.model.Photo
 import cc.anisimov.vlad.unsplashtest.domain.model.User
 import cc.anisimov.vlad.unsplashtest.ui.base.BaseViewModel
+import cc.anisimov.vlad.unsplashtest.util.tryCoroutine
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -37,7 +38,13 @@ class ImageListViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             isLoadingFlow.value = true
-            latestPhotosFlow.value = getLatestPhotosInteractor()
+            tryCoroutine(
+                tryFun = {
+                    latestPhotosFlow.value = getLatestPhotosInteractor()
+                },
+                catchFun = { throwable ->
+                    sendEvent(ImageListScreenEvent.ShowError(throwable.message))
+                })
             isLoadingFlow.value = false
         }
     }
@@ -51,11 +58,10 @@ class ImageListViewModel @Inject constructor(
             }
         }
         //  Update current list
-        val photoListCopy = latestPhotosFlow.value.toMutableList()
-        val photoIndex = photoListCopy.indexOf(photo)
-        photoListCopy.removeAt(photoIndex)
-        photoListCopy.add(photoIndex, photo.copy(isBookmarked = !photo.isBookmarked))
-        latestPhotosFlow.value = photoListCopy
+        latestPhotosFlow.value =
+            latestPhotosFlow.value.map {
+                if (it.id == photo.id) it.copy(isBookmarked = !photo.isBookmarked) else it
+            }
     }
 
     override fun onAuthorClick(author: User) {

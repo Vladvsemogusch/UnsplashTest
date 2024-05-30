@@ -6,7 +6,11 @@ import retrofit2.http.Headers
 
 interface UnsplashService {
 
-    @Headers("Authorization: Client-ID A_EZ1V9bRfQCRXwEmDK_0gVs6nRwXIbrxc8Rd7OB3N0")
+    @Headers("Authorization: Client-ID $CLIENT_ID")
     @GET("photos")
     suspend fun getLatestPhotos(): List<PhotoApiModel>
+
+    companion object {
+        const val CLIENT_ID = "A_EZ1V9bRfQCRXwEmDK_0gVs6nRwXIbrxc8Rd7OB3N0"
+    }
 }

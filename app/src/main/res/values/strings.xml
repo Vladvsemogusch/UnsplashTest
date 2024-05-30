@@ -2,4 +2,6 @@
     <string name="app_name">Unsplash Test</string>
     <string name="bio">Biography</string>
     <string name="author_profile">Author Profile</string>
+    <string name="error_message">We encountered an error: %1$s</string>
+    <string name="error_no_message">We encountered an error</string>
 </resources>
