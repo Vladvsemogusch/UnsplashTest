@@ -13,8 +13,8 @@ class PhotoRepository @Inject constructor(
     private val photoMapper: PhotoMapper
 ) {
 
-    suspend fun getLatestPhotos(): List<Photo> {
-        val latestPhotos = unsplashService.getLatestPhotos()
+    suspend fun getLatestPhotos(page: Int): List<Photo> {
+        val latestPhotos = unsplashService.getLatestPhotos(page)
         val photoBookmarks = database.getPhotoBookmarkDao().getAllBookmarks()
         return photoMapper.map(latestPhotos, photoBookmarks)
     }

@@ -8,6 +8,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -37,6 +39,11 @@ class AppModule {
     fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
         return AppDatabase.createInstance(context)
     }
+
+    @Singleton
+    @Provides
+    fun providesIODispatcher(): CoroutineDispatcher = Dispatchers.IO
+
 
     companion object {
         private const val BASE_URL = "https://api.unsplash.com/"

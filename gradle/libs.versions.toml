@@ -25,7 +25,7 @@ kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android
 # Compose
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity-compose" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 
@@ -54,6 +54,7 @@ room-compiler = { module="androidx.room:room-compiler", version.ref = "room"}
 
 core-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "core-desugaring" }
 hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
+
 
 
 [plugins]

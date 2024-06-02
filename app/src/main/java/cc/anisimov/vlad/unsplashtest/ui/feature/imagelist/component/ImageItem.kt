@@ -1,4 +1,4 @@
-package cc.anisimov.vlad.unsplashtest.ui.feature.image_list.component
+package cc.anisimov.vlad.unsplashtest.ui.feature.imagelist.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import cc.anisimov.vlad.unsplashtest.R
 import cc.anisimov.vlad.unsplashtest.domain.model.Photo
 import cc.anisimov.vlad.unsplashtest.ui.base.component.UrlImage
-import cc.anisimov.vlad.unsplashtest.ui.feature.image_list.ImageListScreenActions
+import cc.anisimov.vlad.unsplashtest.ui.feature.imagelist.ImageListScreenActions
 
 @Composable
 fun ImageItem(photo: Photo, screenActions: ImageListScreenActions) {

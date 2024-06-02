@@ -45,13 +45,14 @@ ksp {
 dependencies {
     //    Compose
     implementation(libs.compose.ui)
-    implementation(libs.compose.ui.tooling.preview)
+    implementation(libs.compose.ui.tooling)
     implementation(libs.compose.material3)
     implementation(libs.androidx.activity.compose)
     implementation(libs.lifecycle.compose)
     implementation(libs.material)
     //  Compose Destinations
     implementation(libs.compose.destinations.core)
+
     ksp(libs.compose.destinations.ksp)
     // Hilt
     implementation(libs.hilt)

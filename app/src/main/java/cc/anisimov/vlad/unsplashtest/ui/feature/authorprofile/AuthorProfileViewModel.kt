@@ -1,4 +1,4 @@
-package cc.anisimov.vlad.unsplashtest.ui.feature.author_profile
+package cc.anisimov.vlad.unsplashtest.ui.feature.authorprofile
 
 import androidx.lifecycle.SavedStateHandle
 import cc.anisimov.vlad.unsplashtest.ui.base.BaseViewModel

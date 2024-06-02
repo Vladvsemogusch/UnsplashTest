@@ -1,12 +1,15 @@
-package cc.anisimov.vlad.unsplashtest.ui.feature.image_list
+package cc.anisimov.vlad.unsplashtest.ui.feature.imagelist
 
 import android.content.Context
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -18,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cc.anisimov.vlad.unsplashtest.R
@@ -26,8 +30,9 @@ import cc.anisimov.vlad.unsplashtest.domain.model.User
 import cc.anisimov.vlad.unsplashtest.ui.base.UIEvent
 import cc.anisimov.vlad.unsplashtest.ui.base.handleEvents
 import cc.anisimov.vlad.unsplashtest.ui.feature.destinations.AuthorProfileRouteDestination
-import cc.anisimov.vlad.unsplashtest.ui.feature.image_list.component.ImageItem
-import cc.anisimov.vlad.unsplashtest.ui.feature.image_list.component.ImageListScreenTopAppBar
+import cc.anisimov.vlad.unsplashtest.ui.feature.imagelist.component.ImageItem
+import cc.anisimov.vlad.unsplashtest.ui.feature.imagelist.component.ImageListScreenTopAppBar
+import cc.anisimov.vlad.unsplashtest.ui.feature.imagelist.component.OnBottomItemReached
 import cc.anisimov.vlad.unsplashtest.ui.theme.UnsplashTestTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
@@ -47,7 +52,11 @@ fun ImageListRoute(
         handleEvent(it, navigator, snackbarHostState, context)
     }
 
-    ImageListScreen(screenState, viewModel, snackbarHostState)
+    ImageListScreen(
+        screenState = screenState,
+        screenActions = viewModel,
+        snackbarHostState = snackbarHostState
+    )
 }
 
 private suspend fun handleEvent(
@@ -77,7 +86,6 @@ private suspend fun handleEvent(
     }
 }
 
-
 @Composable
 private fun ImageListScreen(
     screenState: ImageListScreenState,
@@ -88,14 +96,14 @@ private fun ImageListScreen(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = { ImageListScreenTopAppBar() }) { paddingValues ->
         when (screenState) {
-            is ImageListScreenState.Loading -> {
+            is ImageListScreenState.InitialLoading -> {
                 ImageListScreenLoading(paddingValues)
             }
 
             is ImageListScreenState.Content -> {
                 ImageListScreenContent(
                     paddingValues,
-                    screenState.photoList,
+                    screenState,
                     screenActions
                 )
             }
@@ -117,25 +125,64 @@ private fun ImageListScreenLoading(paddingValues: PaddingValues) {
 @Composable
 private fun ImageListScreenContent(
     paddingValues: PaddingValues,
-    photoList: List<Photo>,
+    contentState: ImageListScreenState.Content,
     screenActions: ImageListScreenActions
 ) {
-    LazyColumn(modifier = Modifier.padding(paddingValues)) {
-        items(items = photoList, key = { photo -> photo.id }) { photo ->
+    val listState = rememberLazyListState()
+    listState.OnBottomItemReached(
+        bottomItemIndexFromEnd = 2,
+        executable = screenActions::onListBottomItemReached,
+    )
+    LazyColumn(modifier = Modifier.padding(paddingValues), state = listState) {
+        items(items = contentState.photoList, key = { photo -> photo.id }) { photo ->
             ImageItem(photo, screenActions)
+        }
+        if (contentState is ImageListScreenState.Content.LoadingMore) {
+            item {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(120.dp)
+                ) {
+                    CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                }
+            }
         }
     }
 }
 
 @Preview
 @Composable
-private fun ImageListScreenContentPreview() {
-    val screenState = ImageListScreenState.Content(
+private fun ImageListScreenContentLoadedPreview() {
+    val screenState = ImageListScreenState.Content.Loaded(
         photoList = listOf()
     )
     val screenActions = object : ImageListScreenActions {
         override fun onBookmarkClick(photo: Photo) {}
         override fun onAuthorClick(author: User) {}
+        override fun onListBottomItemReached() {}
+    }
+    UnsplashTestTheme {
+        ImageListScreen(
+            screenState = screenState,
+            screenActions = screenActions,
+            snackbarHostState = remember {
+                SnackbarHostState()
+            },
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun ImageListScreenContentLoadingMorePreview() {
+    val screenState = ImageListScreenState.Content.LoadingMore(
+        photoList = listOf()
+    )
+    val screenActions = object : ImageListScreenActions {
+        override fun onBookmarkClick(photo: Photo) {}
+        override fun onAuthorClick(author: User) {}
+        override fun onListBottomItemReached() {}
     }
     UnsplashTestTheme {
         ImageListScreen(
@@ -151,10 +198,12 @@ private fun ImageListScreenContentPreview() {
 @Preview
 @Composable
 private fun ImageListScreenLoadingPreview() {
-    val screenState = ImageListScreenState.Loading
+    val screenState = ImageListScreenState.InitialLoading
     val screenActions = object : ImageListScreenActions {
         override fun onBookmarkClick(photo: Photo) {}
         override fun onAuthorClick(author: User) {}
+        override fun onListBottomItemReached() {}
+
     }
     UnsplashTestTheme {
         ImageListScreen(

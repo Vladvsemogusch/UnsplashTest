@@ -1,4 +1,4 @@
-package cc.anisimov.vlad.unsplashtest.ui.feature.image_list
+package cc.anisimov.vlad.unsplashtest.ui.feature.imagelist
 
 import androidx.compose.runtime.Stable
 import cc.anisimov.vlad.unsplashtest.domain.model.Photo
@@ -10,4 +10,6 @@ interface ImageListScreenActions {
     fun onBookmarkClick(photo: Photo)
 
     fun onAuthorClick(author: User)
+
+    fun onListBottomItemReached()
 }

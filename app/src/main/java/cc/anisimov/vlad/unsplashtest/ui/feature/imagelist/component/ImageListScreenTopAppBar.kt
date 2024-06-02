@@ -1,4 +1,4 @@
-package cc.anisimov.vlad.unsplashtest.ui.feature.image_list.component
+package cc.anisimov.vlad.unsplashtest.ui.feature.imagelist.component
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme

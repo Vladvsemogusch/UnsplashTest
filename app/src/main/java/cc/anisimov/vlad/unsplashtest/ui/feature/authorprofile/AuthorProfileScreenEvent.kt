@@ -1,4 +1,4 @@
-package cc.anisimov.vlad.unsplashtest.ui.feature.author_profile
+package cc.anisimov.vlad.unsplashtest.ui.feature.authorprofile
 
 import cc.anisimov.vlad.unsplashtest.ui.base.UIEvent
 
