@@ -4,6 +4,7 @@ import cc.anisimov.vlad.unsplashtest.data.db.AppDatabase
 import cc.anisimov.vlad.unsplashtest.data.db.entity.PhotoBookmarkEntity
 import cc.anisimov.vlad.unsplashtest.data.mapper.PhotoMapper
 import cc.anisimov.vlad.unsplashtest.data.network.UnsplashService
+import cc.anisimov.vlad.unsplashtest.data.network.model.PhotoApiModel
 import cc.anisimov.vlad.unsplashtest.domain.model.Photo
 import javax.inject.Inject
 
@@ -14,9 +15,19 @@ class PhotoRepository @Inject constructor(
 ) {
 
     suspend fun getLatestPhotos(page: Int): List<Photo> {
-        val latestPhotos = unsplashService.getLatestPhotos(page)
+        var latestPhotos = unsplashService.getLatestPhotos(page)
+        latestPhotos = applyApiFix(page, latestPhotos)
         val photoBookmarks = database.getPhotoBookmarkDao().getAllBookmarks()
         return photoMapper.map(latestPhotos, photoBookmarks)
+    }
+
+    // Api paging is bugged as of 2.06.24. Returns duplicate photos starting from page 2 (first 2 items)
+    private fun applyApiFix(page: Int, latestPhotos: List<PhotoApiModel>): List<PhotoApiModel> {
+        return if (page > 1) {
+            latestPhotos.subList(2, latestPhotos.size)
+        } else {
+            latestPhotos
+        }
     }
 
     suspend fun addPhotoBookmark(photoId: String) {
