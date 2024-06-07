@@ -1,13 +1,15 @@
 package cc.anisimov.vlad.unsplashtest.data.network.model
 
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class ProfileImageApiModel(
-    @SerializedName("large")
+    @SerialName("large")
     val large: String?,
-    @SerializedName("medium")
+    @SerialName("medium")
     val medium: String?,
-    @SerializedName("small")
+    @SerialName("small")
     val small: String?
 )

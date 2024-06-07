@@ -1,31 +1,33 @@
 package cc.anisimov.vlad.unsplashtest.data.network.model
 
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class PhotoApiModel(
-    @SerializedName("blur_hash")
+    @SerialName("blur_hash")
     val blurHash: String,
-    @SerializedName("color")
+    @SerialName("color")
     val color: String,
-    @SerializedName("created_at")
+    @SerialName("created_at")
     val createdAt: String,
-    @SerializedName("description")
+    @SerialName("description")
     val description: String?,
-    @SerializedName("height")
+    @SerialName("height")
     val height: Int,
-    @SerializedName("id")
+    @SerialName("id")
     val id: String,
-    @SerializedName("liked_by_user")
+    @SerialName("liked_by_user")
     val likedByUser: Boolean,
-    @SerializedName("likes")
+    @SerialName("likes")
     val likes: Int,
-    @SerializedName("updated_at")
+    @SerialName("updated_at")
     val updatedAt: String,
-    @SerializedName("urls")
+    @SerialName("urls")
     val urls: UrlsApiModel,
-    @SerializedName("user")
+    @SerialName("user")
     val user: UserApiModel,
-    @SerializedName("width")
+    @SerialName("width")
     val width: Int
 )

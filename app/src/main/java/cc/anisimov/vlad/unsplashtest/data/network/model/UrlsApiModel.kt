@@ -1,17 +1,19 @@
 package cc.anisimov.vlad.unsplashtest.data.network.model
 
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class UrlsApiModel(
-    @SerializedName("full")
+    @SerialName("full")
     val full: String?,
-    @SerializedName("raw")
+    @SerialName("raw")
     val raw: String?,
-    @SerializedName("regular")
+    @SerialName("regular")
     val regular: String?,
-    @SerializedName("small")
+    @SerialName("small")
     val small: String?,
-    @SerializedName("thumb")
+    @SerialName("thumb")
     val thumb: String?
 )

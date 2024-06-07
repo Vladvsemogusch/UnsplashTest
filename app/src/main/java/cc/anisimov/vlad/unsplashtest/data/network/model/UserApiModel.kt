@@ -1,31 +1,33 @@
 package cc.anisimov.vlad.unsplashtest.data.network.model
 
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class UserApiModel(
-    @SerializedName("id")
+    @SerialName("id")
     val id: String,
-    @SerializedName("bio")
+    @SerialName("bio")
     val bio: String?,
-    @SerializedName("instagram_username")
+    @SerialName("instagram_username")
     val instagramUsername: String?,
-    @SerializedName("location")
+    @SerialName("location")
     val location: String?,
-    @SerializedName("name")
+    @SerialName("name")
     val name: String,
-    @SerializedName("portfolio_url")
+    @SerialName("portfolio_url")
     val portfolioUrl: String?,
-    @SerializedName("profile_image")
+    @SerialName("profile_image")
     val profileImage: ProfileImageApiModel,
-    @SerializedName("total_collections")
+    @SerialName("total_collections")
     val totalCollections: Int,
-    @SerializedName("total_likes")
+    @SerialName("total_likes")
     val totalLikes: Int,
-    @SerializedName("total_photos")
+    @SerialName("total_photos")
     val totalPhotos: Int,
-    @SerializedName("twitter_username")
+    @SerialName("twitter_username")
     val twitterUsername: String?,
-    @SerializedName("username")
+    @SerialName("username")
     val username: String
 )

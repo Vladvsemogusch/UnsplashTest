@@ -1,6 +1,6 @@
 package cc.anisimov.vlad.unsplashtest.data.repository
 
-import cc.anisimov.vlad.unsplashtest.data.db.AppDatabase
+import cc.anisimov.vlad.unsplashtest.data.db.dao.PhotoBookmarkDao
 import cc.anisimov.vlad.unsplashtest.data.db.entity.PhotoBookmarkEntity
 import cc.anisimov.vlad.unsplashtest.data.mapper.PhotoMapper
 import cc.anisimov.vlad.unsplashtest.data.network.UnsplashService
@@ -10,14 +10,14 @@ import javax.inject.Inject
 
 class PhotoRepository @Inject constructor(
     private val unsplashService: UnsplashService,
-    private val database: AppDatabase,
+    private val bookmarkDao: PhotoBookmarkDao,
     private val photoMapper: PhotoMapper
 ) {
 
     suspend fun getLatestPhotos(page: Int): List<Photo> {
         var latestPhotos = unsplashService.getLatestPhotos(page)
         latestPhotos = applyApiFix(page, latestPhotos)
-        val photoBookmarks = database.getPhotoBookmarkDao().getAllBookmarks()
+        val photoBookmarks = bookmarkDao.getAllBookmarks()
         return photoMapper.map(latestPhotos, photoBookmarks)
     }
 
@@ -32,11 +32,11 @@ class PhotoRepository @Inject constructor(
 
     suspend fun addPhotoBookmark(photoId: String) {
         val photoBookmark = PhotoBookmarkEntity(photoId)
-        database.getPhotoBookmarkDao().insertBookmark(photoBookmark)
+        bookmarkDao.insertBookmark(photoBookmark)
     }
 
     suspend fun deletePhotoBookmark(photoId: String) {
         val photoBookmark = PhotoBookmarkEntity(photoId)
-        database.getPhotoBookmarkDao().deleteBookmark(photoBookmark)
+        bookmarkDao.deleteBookmark(photoBookmark)
     }
 }

@@ -4,7 +4,9 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     id(libs.plugins.kotlin.parcelize.get().pluginId)
+    kotlin("plugin.serialization") version "1.9.21"
 }
+
 
 android {
     namespace = "cc.anisimov.vlad.unsplashtest"
@@ -52,7 +54,6 @@ dependencies {
     implementation(libs.material)
     //  Compose Destinations
     implementation(libs.compose.destinations.core)
-
     ksp(libs.compose.destinations.ksp)
     // Hilt
     implementation(libs.hilt)
@@ -60,7 +61,7 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
     // Retrofit
     implementation(libs.retrofit)
-    implementation(libs.retrofit.converter)
+    implementation(libs.kotlinx.serialization.converter)
     // Room
     implementation(libs.room)
     implementation(libs.room.ktx)
@@ -72,5 +73,6 @@ dependencies {
     //  Coil
     implementation(libs.coil)
     implementation(libs.coil.compose)
-
+    //  Kotlinx serialization
+    implementation(libs.kotlinx.serialization)
 }
