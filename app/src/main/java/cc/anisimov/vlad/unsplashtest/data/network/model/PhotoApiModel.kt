@@ -25,7 +25,7 @@ data class PhotoApiModel(
     @SerialName("updated_at")
     val updatedAt: String,
     @SerialName("urls")
-    val urls: UrlsApiModel,
+    val urls: PhotoUrlsApiModel,
     @SerialName("user")
     val user: UserApiModel,
     @SerialName("width")

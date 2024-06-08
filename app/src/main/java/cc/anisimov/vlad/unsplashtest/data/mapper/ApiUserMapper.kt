@@ -4,7 +4,7 @@ import cc.anisimov.vlad.unsplashtest.data.network.model.UserApiModel
 import cc.anisimov.vlad.unsplashtest.domain.model.User
 import javax.inject.Inject
 
-class UserMapper @Inject constructor() {
+class ApiUserMapper @Inject constructor() {
 
     fun map(userApiModel: UserApiModel): User {
         return with(userApiModel) {

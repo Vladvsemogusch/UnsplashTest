@@ -32,7 +32,7 @@ class AppModule {
     fun provideRetrofit(
         converterFactory: Converter.Factory,
         okHttpClient: OkHttpClient
-    ) = Retrofit.Builder()
+    ): Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(converterFactory)
         .client(okHttpClient)
