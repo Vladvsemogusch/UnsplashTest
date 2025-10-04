@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.compose.compiler)
     id(libs.plugins.kotlin.parcelize.get().pluginId)
     kotlin("plugin.serialization") version "1.9.21"
 }

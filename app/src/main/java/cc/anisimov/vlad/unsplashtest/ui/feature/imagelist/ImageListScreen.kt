@@ -68,8 +68,7 @@ private suspend fun handleEvent(
     when (event) {
         is ImageListScreenEvent.GoToAuthorProfile -> {
             navigator.navigate(
-                direction = AuthorProfileRouteDestination(event.author),
-                onlyIfResumed = true
+                direction = AuthorProfileRouteDestination(event.author)
             )
         }
 
