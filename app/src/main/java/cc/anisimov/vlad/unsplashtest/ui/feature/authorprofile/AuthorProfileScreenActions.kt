@@ -6,4 +6,12 @@ import androidx.compose.runtime.Stable
 interface AuthorProfileScreenActions {
 
     fun onBackPress()
+
+    companion object {
+        val Empty by lazy {
+            object : AuthorProfileScreenActions {
+                override fun onBackPress() {}
+            }
+        }
+    }
 }

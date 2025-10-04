@@ -44,13 +44,11 @@ class AppModule {
         .addInterceptor(authInterceptor)
         .build()
 
-
     @Singleton
     @Provides
     fun providesJsonConverterFactory(json: Json): Converter.Factory = json.asConverterFactory(
         MEDIA_TYPE_JSON.toMediaType()
     )
-
 
     @Singleton
     @Provides
@@ -65,7 +63,6 @@ class AppModule {
     @Singleton
     @Provides
     fun providesBookmarkDao(appDatabase: AppDatabase) = appDatabase.getPhotoBookmarkDao()
-
 
     companion object {
         private const val BASE_URL = "https://api.unsplash.com/"

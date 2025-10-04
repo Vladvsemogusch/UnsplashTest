@@ -1,5 +1,6 @@
 package cc.anisimov.vlad.unsplashtest.ui.feature.imagelist.component
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -8,21 +9,22 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 
 
+@SuppressLint("ComposableNaming")
 @Composable
-fun LazyListState.OnBottomItemReached(
-    bottomItemIndexFromEnd: Int = 0,
-    executable: () -> Unit,
+fun LazyListState.onBottomItemReached(
+    itemIndexFromBottom: Int = 0,
+    doOnBottomItemReached: () -> Unit,
 ) {
-    val shouldLoadMore by remember {
+    val isBottomItemReached by remember {
         derivedStateOf {
             val lastVisibleItem = layoutInfo.visibleItemsInfo.lastOrNull()
                 ?: return@derivedStateOf true
 
-            lastVisibleItem.index == layoutInfo.totalItemsCount - 1 - bottomItemIndexFromEnd
+            lastVisibleItem.index == layoutInfo.totalItemsCount - 1 - itemIndexFromBottom
         }
     }
 
-    LaunchedEffect(shouldLoadMore) {
-        if (shouldLoadMore) executable()
+    LaunchedEffect(isBottomItemReached) {
+        if (isBottomItemReached) doOnBottomItemReached()
     }
 }

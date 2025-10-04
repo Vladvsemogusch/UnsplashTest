@@ -27,12 +27,12 @@ fun ImageItem(photo: Photo, screenActions: ImageListScreenActions) {
     } else {
         R.drawable.ic_bookmark
     }
+
     Card(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
         Box {
             UrlImage(
                 url = photo.url,
-                modifier = Modifier
-                    .fillMaxWidth()
+                modifier = Modifier.fillMaxWidth()
             )
             IconButton(
                 onClick = { screenActions.onBookmarkClick(photo) },

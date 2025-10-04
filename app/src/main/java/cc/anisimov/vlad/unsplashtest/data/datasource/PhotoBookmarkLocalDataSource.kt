@@ -6,7 +6,8 @@ import javax.inject.Inject
 
 class PhotoBookmarkLocalDataSource @Inject constructor(private val photoBookmarkDao: PhotoBookmarkDao) {
 
-    suspend fun getAllBookmarks(): List<PhotoBookmarkEntity> = photoBookmarkDao.getAllBookmarks()
+    suspend fun getAllBookmarks(): List<PhotoBookmarkEntity> =
+        photoBookmarkDao.getAllBookmarks()
 
     suspend fun addPhotoBookmark(photoId: String) {
         val photoBookmark = PhotoBookmarkEntity(photoId)

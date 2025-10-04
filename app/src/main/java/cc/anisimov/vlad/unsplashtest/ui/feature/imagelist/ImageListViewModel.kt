@@ -35,13 +35,14 @@ class ImageListViewModel @Inject constructor(
                 }
 
                 else -> {
-                    ImageListScreenState.Content.Loaded(latestPhotos)
+                    ImageListScreenState.Content.Ready(latestPhotos)
                     ImageListScreenState.Content.LoadingMore(latestPhotos)
                 }
             }
         }.stateIn(viewModelScope, SharingStarted.Eagerly, ImageListScreenState.InitialLoading)
 
     init {
+        //  Initial load
         viewModelScope.launch {
             imageListPager.loadMore()
         }

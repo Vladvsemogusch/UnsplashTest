@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cc.anisimov.vlad.unsplashtest.R
 import cc.anisimov.vlad.unsplashtest.domain.model.Photo
@@ -32,7 +32,7 @@ import cc.anisimov.vlad.unsplashtest.ui.base.handleEvents
 import cc.anisimov.vlad.unsplashtest.ui.feature.destinations.AuthorProfileRouteDestination
 import cc.anisimov.vlad.unsplashtest.ui.feature.imagelist.component.ImageItem
 import cc.anisimov.vlad.unsplashtest.ui.feature.imagelist.component.ImageListScreenTopAppBar
-import cc.anisimov.vlad.unsplashtest.ui.feature.imagelist.component.OnBottomItemReached
+import cc.anisimov.vlad.unsplashtest.ui.feature.imagelist.component.onBottomItemReached
 import cc.anisimov.vlad.unsplashtest.ui.theme.UnsplashTestTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
@@ -48,6 +48,7 @@ fun ImageListRoute(
     val screenState by viewModel.screenState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
+
     handleEvents(eventsFlow = viewModel.eventsFlow) {
         handleEvent(it, navigator, snackbarHostState, context)
     }
@@ -93,17 +94,18 @@ private fun ImageListScreen(
 ) {
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
-        topBar = { ImageListScreenTopAppBar() }) { paddingValues ->
+        topBar = { ImageListScreenTopAppBar() }
+    ) { paddingValues ->
         when (screenState) {
             is ImageListScreenState.InitialLoading -> {
-                ImageListScreenLoading(paddingValues)
+                ImageListScreenLoading(paddingValues = paddingValues)
             }
 
             is ImageListScreenState.Content -> {
                 ImageListScreenContent(
-                    paddingValues,
-                    screenState,
-                    screenActions
+                    paddingValues = paddingValues,
+                    contentState = screenState,
+                    screenActions = screenActions
                 )
             }
         }
@@ -128,11 +130,17 @@ private fun ImageListScreenContent(
     screenActions: ImageListScreenActions
 ) {
     val listState = rememberLazyListState()
-    listState.OnBottomItemReached(
-        bottomItemIndexFromEnd = 2,
-        executable = screenActions::onListBottomItemReached,
+
+    // Start loading more on reaching third item from the bottom
+    listState.onBottomItemReached(
+        itemIndexFromBottom = 2,
+        doOnBottomItemReached = screenActions::onListBottomItemReached,
     )
-    LazyColumn(modifier = Modifier.padding(paddingValues), state = listState) {
+
+    LazyColumn(
+        modifier = Modifier.padding(paddingValues),
+        state = listState
+    ) {
         items(items = contentState.photoList, key = { photo -> photo.id }) { photo ->
             ImageItem(photo, screenActions)
         }
@@ -153,7 +161,7 @@ private fun ImageListScreenContent(
 @Preview
 @Composable
 private fun ImageListScreenContentLoadedPreview() {
-    val screenState = ImageListScreenState.Content.Loaded(
+    val screenState = ImageListScreenState.Content.Ready(
         photoList = listOf()
     )
     val screenActions = object : ImageListScreenActions {
@@ -178,15 +186,11 @@ private fun ImageListScreenContentLoadingMorePreview() {
     val screenState = ImageListScreenState.Content.LoadingMore(
         photoList = listOf()
     )
-    val screenActions = object : ImageListScreenActions {
-        override fun onBookmarkClick(photo: Photo) {}
-        override fun onAuthorClick(author: User) {}
-        override fun onListBottomItemReached() {}
-    }
+
     UnsplashTestTheme {
         ImageListScreen(
             screenState = screenState,
-            screenActions = screenActions,
+            screenActions = ImageListScreenActions.Empty,
             snackbarHostState = remember {
                 SnackbarHostState()
             },
@@ -198,16 +202,11 @@ private fun ImageListScreenContentLoadingMorePreview() {
 @Composable
 private fun ImageListScreenLoadingPreview() {
     val screenState = ImageListScreenState.InitialLoading
-    val screenActions = object : ImageListScreenActions {
-        override fun onBookmarkClick(photo: Photo) {}
-        override fun onAuthorClick(author: User) {}
-        override fun onListBottomItemReached() {}
 
-    }
     UnsplashTestTheme {
         ImageListScreen(
             screenState = screenState,
-            screenActions = screenActions,
+            screenActions = ImageListScreenActions.Empty,
             snackbarHostState = remember {
                 SnackbarHostState()
             },

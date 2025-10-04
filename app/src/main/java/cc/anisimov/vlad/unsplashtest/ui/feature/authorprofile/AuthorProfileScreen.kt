@@ -23,7 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import cc.anisimov.vlad.unsplashtest.R
 import cc.anisimov.vlad.unsplashtest.ui.base.UIEvent
 import cc.anisimov.vlad.unsplashtest.ui.base.component.UrlImage
@@ -56,7 +56,7 @@ private fun handleEvent(event: UIEvent, navigator: DestinationsNavigator) {
 }
 
 @Composable
-fun AuthorProfileScreen(
+private fun AuthorProfileScreen(
     screenState: AuthorProfileScreenState,
     screenActions: AuthorProfileScreenActions,
 ) {
@@ -96,9 +96,7 @@ fun AuthorProfileScreen(
                     modifier = Modifier
                         .padding(top = 16.dp, start = 16.dp, end = 16.dp)
                         .background(
-                            color = MaterialTheme.colorScheme.onSurface.copy(
-                                alpha = 0.05f
-                            ),
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f),
                             shape = MaterialTheme.shapes.medium
                         )
                         .padding(8.dp),
@@ -112,7 +110,7 @@ fun AuthorProfileScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AuthorProfileScreenTopAppBar(onBackPress: () -> Unit) {
+private fun AuthorProfileScreenTopAppBar(onBackPress: () -> Unit) {
     TopAppBar(
         colors = TopAppBarDefaults.topAppBarColors()
             .copy(containerColor = MaterialTheme.colorScheme.secondary),
@@ -135,17 +133,15 @@ fun AuthorProfileScreenTopAppBar(onBackPress: () -> Unit) {
 
 @Preview
 @Composable
-fun AuthorProfileScreenContentPreview() {
+private fun AuthorProfileScreenContentPreview() {
     val screenState = AuthorProfileScreenState(
         name = "Test Name", bio = "Test Bio", profileImageUrl = ""
     )
-    val screenActions = object : AuthorProfileScreenActions {
-        override fun onBackPress() {}
-    }
+    
     UnsplashTestTheme {
         AuthorProfileScreen(
             screenState = screenState,
-            screenActions = screenActions,
+            screenActions = AuthorProfileScreenActions.Empty,
         )
     }
 }

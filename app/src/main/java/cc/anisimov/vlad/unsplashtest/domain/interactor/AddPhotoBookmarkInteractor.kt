@@ -8,5 +8,4 @@ class AddPhotoBookmarkInteractor @Inject constructor(
 ) {
 
     suspend operator fun invoke(photoId: String) = bookmarkRepository.addPhotoBookmark(photoId)
-
 }

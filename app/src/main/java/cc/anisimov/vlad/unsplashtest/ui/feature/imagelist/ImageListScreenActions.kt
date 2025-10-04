@@ -12,4 +12,14 @@ interface ImageListScreenActions {
     fun onAuthorClick(author: User)
 
     fun onListBottomItemReached()
+
+    companion object {
+        val Empty by lazy {
+            object : ImageListScreenActions {
+                override fun onBookmarkClick(photo: Photo) {}
+                override fun onAuthorClick(author: User) {}
+                override fun onListBottomItemReached() {}
+            }
+        }
+    }
 }

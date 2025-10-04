@@ -7,7 +7,5 @@ class DeletePhotoBookmarkInteractor @Inject constructor(
     private val bookmarkRepository: PhotoBookmarkRepository,
 ) {
 
-    suspend operator fun invoke(photoId: String) {
-        bookmarkRepository.deletePhotoBookmark(photoId)
-    }
+    suspend operator fun invoke(photoId: String) = bookmarkRepository.deletePhotoBookmark(photoId)
 }
