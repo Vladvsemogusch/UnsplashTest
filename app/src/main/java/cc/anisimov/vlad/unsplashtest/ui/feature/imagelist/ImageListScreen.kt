@@ -29,17 +29,16 @@ import cc.anisimov.vlad.unsplashtest.domain.model.Photo
 import cc.anisimov.vlad.unsplashtest.domain.model.User
 import cc.anisimov.vlad.unsplashtest.ui.base.UIEvent
 import cc.anisimov.vlad.unsplashtest.ui.base.handleEvents
-import cc.anisimov.vlad.unsplashtest.ui.feature.destinations.AuthorProfileRouteDestination
+import cc.anisimov.vlad.unsplashtest.ui.base.navigation.AppGraph
 import cc.anisimov.vlad.unsplashtest.ui.feature.imagelist.component.ImageItem
 import cc.anisimov.vlad.unsplashtest.ui.feature.imagelist.component.ImageListScreenTopAppBar
 import cc.anisimov.vlad.unsplashtest.ui.feature.imagelist.component.onBottomItemReached
 import cc.anisimov.vlad.unsplashtest.ui.theme.UnsplashTestTheme
 import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.annotation.RootNavGraph
+import com.ramcosta.composedestinations.generated.destinations.AuthorProfileRouteDestination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-@RootNavGraph(start = true)
-@Destination
+@Destination<AppGraph>(start = true)
 @Composable
 fun ImageListRoute(
     navigator: DestinationsNavigator,

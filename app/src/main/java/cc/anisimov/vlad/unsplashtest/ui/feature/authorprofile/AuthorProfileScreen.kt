@@ -28,11 +28,12 @@ import cc.anisimov.vlad.unsplashtest.R
 import cc.anisimov.vlad.unsplashtest.ui.base.UIEvent
 import cc.anisimov.vlad.unsplashtest.ui.base.component.UrlImage
 import cc.anisimov.vlad.unsplashtest.ui.base.handleEvents
+import cc.anisimov.vlad.unsplashtest.ui.base.navigation.AppGraph
 import cc.anisimov.vlad.unsplashtest.ui.theme.UnsplashTestTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-@Destination(navArgsDelegate = AuthorProfileNavArgs::class)
+@Destination<AppGraph>(navArgs = AuthorProfileNavArgs::class)
 @Composable
 fun AuthorProfileRoute(
     navigator: DestinationsNavigator,

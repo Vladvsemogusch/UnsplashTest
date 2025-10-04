@@ -2,7 +2,7 @@ package cc.anisimov.vlad.unsplashtest.ui.feature.authorprofile
 
 import androidx.lifecycle.SavedStateHandle
 import cc.anisimov.vlad.unsplashtest.ui.base.BaseViewModel
-import cc.anisimov.vlad.unsplashtest.ui.feature.destinations.AuthorProfileRouteDestination
+import com.ramcosta.composedestinations.generated.destinations.AuthorProfileRouteDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
