@@ -13,7 +13,7 @@ import javax.inject.Inject
 class GetLatestPhotosPageInteractor @Inject constructor(
     private val photoRepository: PhotoRepository,
     private val bookmarkRepository: PhotoBookmarkRepository,
-    @DispatcherDefault private val dispatcher: CoroutineDispatcher
+    @param:DispatcherDefault private val dispatcher: CoroutineDispatcher
 ) {
 
     suspend operator fun invoke(page: Int): List<Photo> = withContext(dispatcher) {

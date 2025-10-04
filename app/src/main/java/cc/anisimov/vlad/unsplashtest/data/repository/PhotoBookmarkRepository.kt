@@ -11,7 +11,7 @@ import javax.inject.Inject
 class PhotoBookmarkRepository @Inject constructor(
     private val photoBookmarkLocalDataSource: PhotoBookmarkLocalDataSource,
     private val bookmarkMapper: EntityPhotoBookmarkMapper,
-    @DispatcherIO private val dispatcher: CoroutineDispatcher
+    @param:DispatcherIO private val dispatcher: CoroutineDispatcher
 ) {
 
     suspend fun getAllBookmarks(): List<PhotoBookmarkDto> = withContext(dispatcher) {
