@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import cc.anisimov.vlad.unsplashtest.data.db.entity.PhotoBookmarkEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PhotoBookmarkDao {
@@ -17,5 +18,5 @@ interface PhotoBookmarkDao {
     suspend fun deleteBookmark(bookmark: PhotoBookmarkEntity)
 
     @Query("SELECT * from photo_bookmark")
-    suspend fun getAllBookmarks(): List<PhotoBookmarkEntity>
+    fun getAllBookmarksFlow(): Flow<List<PhotoBookmarkEntity>>
 }

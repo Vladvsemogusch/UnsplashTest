@@ -7,6 +7,8 @@ import cc.anisimov.vlad.unsplashtest.domain.model.Photo
 import cc.anisimov.vlad.unsplashtest.domain.model.dto.PhotoBookmarkDto
 import cc.anisimov.vlad.unsplashtest.domain.model.dto.PhotoDto
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -16,10 +18,10 @@ class GetLatestPhotosPageInteractor @Inject constructor(
     @param:DispatcherDefault private val dispatcher: CoroutineDispatcher
 ) {
 
-    suspend operator fun invoke(page: Int): List<Photo> = withContext(dispatcher) {
+    suspend operator fun invoke(page: Int): Flow<List<Photo>> = withContext(dispatcher) {
         val dtoPhotoModels = photoRepository.getLatestPhotos(page)
-        val dtoPhotoBookmarks = bookmarkRepository.getAllBookmarks()
-        assemblePhotos(dtoPhotoModels, dtoPhotoBookmarks)
+        val dtoPhotoBookmarksFlow = bookmarkRepository.getAllBookmarks()
+        dtoPhotoBookmarksFlow.map { assemblePhotos(dtoPhotoModels, it) }
     }
 
     private fun assemblePhotos(

@@ -64,8 +64,6 @@ class ImageListViewModel @Inject constructor(
                 addPhotoBookmarkInteractor(photo.id)
             }
         }
-        //  Update current list
-        imageListPager.updatePhotoBookmarkState(photo)
     }
 
     override fun onAuthorClick(author: User) {

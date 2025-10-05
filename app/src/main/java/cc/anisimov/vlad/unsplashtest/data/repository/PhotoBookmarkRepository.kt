@@ -5,6 +5,8 @@ import cc.anisimov.vlad.unsplashtest.data.mapper.EntityPhotoBookmarkMapper
 import cc.anisimov.vlad.unsplashtest.di.DispatcherIO
 import cc.anisimov.vlad.unsplashtest.domain.model.dto.PhotoBookmarkDto
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -14,9 +16,9 @@ class PhotoBookmarkRepository @Inject constructor(
     @param:DispatcherIO private val dispatcher: CoroutineDispatcher
 ) {
 
-    suspend fun getAllBookmarks(): List<PhotoBookmarkDto> = withContext(dispatcher) {
-        val entityPhotoBookmarks = photoBookmarkLocalDataSource.getAllBookmarks()
-        bookmarkMapper.map(entityPhotoBookmarks)
+    fun getAllBookmarks(): Flow<List<PhotoBookmarkDto>> {
+        return photoBookmarkLocalDataSource.getAllBookmarks()
+            .map { entityPhotoBookmarkList -> bookmarkMapper.map(entityPhotoBookmarkList) }
     }
 
     suspend fun addPhotoBookmark(photoId: String) = withContext(dispatcher) {

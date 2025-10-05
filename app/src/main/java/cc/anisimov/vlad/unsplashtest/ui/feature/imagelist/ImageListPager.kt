@@ -3,11 +3,15 @@ package cc.anisimov.vlad.unsplashtest.ui.feature.imagelist
 import cc.anisimov.vlad.unsplashtest.domain.interactor.GetLatestPhotosPageInteractor
 import cc.anisimov.vlad.unsplashtest.domain.model.Photo
 import cc.anisimov.vlad.unsplashtest.util.tryCoroutine
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.flattenMerge
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.runningFold
 import javax.inject.Inject
 
 class ImageListPager @Inject constructor(private val getLatestPhotosPageInteractor: GetLatestPhotosPageInteractor) {
@@ -16,8 +20,19 @@ class ImageListPager @Inject constructor(private val getLatestPhotosPageInteract
     //  Could be remade as state, but current case it too simple to benefit from it.
     private var lastPage = 0
 
-    private val _imageListFlow = MutableStateFlow<List<Photo>>(emptyList())
-    val imageListFlow = _imageListFlow.asStateFlow()
+    private val _imagePageFlows = MutableSharedFlow<Flow<List<Photo>>>()
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val imageListFlow = _imagePageFlows
+        .flattenMerge(concurrency = Int.MAX_VALUE)
+        .runningFold(emptyMap<String, Photo>()) { photoMap, newPhotos ->
+            photoMap
+                .toMutableMap()
+                .apply {
+                    newPhotos.forEach { photo -> this[photo.id] = photo }
+                }
+        }
+        .map { it.values.toList() }
 
     private val _isLoadingFlow = MutableStateFlow(false)
     val isLoadingFlow = _isLoadingFlow.asStateFlow()
@@ -28,26 +43,13 @@ class ImageListPager @Inject constructor(private val getLatestPhotosPageInteract
         _isLoadingFlow.value = true
         tryCoroutine(
             tryFun = {
-                _imageListFlow.update { photoList ->
-                    val nextPhotos = getLatestPhotosPageInteractor(++lastPage)
-                    //  Latest photos change quickly, so pages can contain duplicates from other pages
-                    val currentIds = photoList.map { it.id }
-                    val nextPhotosDeduplicated = nextPhotos.filterNot { it.id in currentIds }
-                    photoList + nextPhotosDeduplicated
-                }
+                val nextPageFlow = getLatestPhotosPageInteractor(++lastPage)
+                _imagePageFlows.emit(nextPageFlow)
             },
             catchFun = { throwable ->
                 _errorFlow.emit(throwable)
             }
         )
         _isLoadingFlow.value = false
-    }
-
-    fun updatePhotoBookmarkState(photo: Photo) {
-        _imageListFlow.update { photoList ->
-            photoList.map {
-                if (it.id == photo.id) it.copy(isBookmarked = !photo.isBookmarked) else it
-            }
-        }
     }
 }

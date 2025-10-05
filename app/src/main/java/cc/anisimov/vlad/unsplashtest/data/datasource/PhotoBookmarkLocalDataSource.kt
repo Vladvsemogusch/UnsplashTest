@@ -2,12 +2,13 @@ package cc.anisimov.vlad.unsplashtest.data.datasource
 
 import cc.anisimov.vlad.unsplashtest.data.db.dao.PhotoBookmarkDao
 import cc.anisimov.vlad.unsplashtest.data.db.entity.PhotoBookmarkEntity
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class PhotoBookmarkLocalDataSource @Inject constructor(private val photoBookmarkDao: PhotoBookmarkDao) {
 
-    suspend fun getAllBookmarks(): List<PhotoBookmarkEntity> =
-        photoBookmarkDao.getAllBookmarks()
+    fun getAllBookmarks(): Flow<List<PhotoBookmarkEntity>> =
+        photoBookmarkDao.getAllBookmarksFlow()
 
     suspend fun addPhotoBookmark(photoId: String) {
         val photoBookmark = PhotoBookmarkEntity(photoId)
