@@ -28,6 +28,8 @@ abstract class AppDatabase : RoomDatabase() {
                 AppDatabase::class.java,
                 DATABASE_NAME
             )
+                //  Should create proper migration strategy in production
+                .fallbackToDestructiveMigration(true)
                 .build()
         }
     }

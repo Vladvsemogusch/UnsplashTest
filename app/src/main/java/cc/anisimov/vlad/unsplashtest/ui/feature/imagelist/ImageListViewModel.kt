@@ -36,7 +36,6 @@ class ImageListViewModel @Inject constructor(
 
                 else -> {
                     ImageListScreenState.Content.Ready(latestPhotos)
-                    ImageListScreenState.Content.LoadingMore(latestPhotos)
                 }
             }
         }.stateIn(viewModelScope, SharingStarted.Eagerly, ImageListScreenState.InitialLoading)
