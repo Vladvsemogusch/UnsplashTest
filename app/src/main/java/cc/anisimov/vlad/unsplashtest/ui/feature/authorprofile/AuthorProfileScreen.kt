@@ -114,7 +114,7 @@ private fun AuthorProfileScreen(
 private fun AuthorProfileScreenTopAppBar(onBackPress: () -> Unit) {
     TopAppBar(
         colors = TopAppBarDefaults.topAppBarColors()
-            .copy(containerColor = MaterialTheme.colorScheme.secondary),
+            .copy(containerColor = MaterialTheme.colorScheme.primary),
         navigationIcon = {
             IconButton(onClick = onBackPress) {
                 Icon(

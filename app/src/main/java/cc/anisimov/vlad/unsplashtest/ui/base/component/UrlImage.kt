@@ -19,8 +19,8 @@ import coil.compose.SubcomposeAsyncImageContent
 
 @Composable
 fun UrlImage(
-    url: String?,
     modifier: Modifier = Modifier,
+    url: String?,
     scale: ContentScale = ContentScale.Crop,
     shape: Shape = RoundedCornerShape(0.dp),
     colorFilter: ColorFilter? = null
@@ -32,8 +32,7 @@ fun UrlImage(
         colorFilter = colorFilter,
         model = url,
     ) {
-        val state = painter.state
-        if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
+        if (painter.state is AsyncImagePainter.State.Loading || painter.state is AsyncImagePainter.State.Error) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
