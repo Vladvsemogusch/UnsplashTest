@@ -1,9 +1,13 @@
 package cc.anisimov.vlad.unsplashtest.di
 
 import android.content.Context
+import android.util.Log
+import cc.anisimov.vlad.unsplashtest.BuildConfig
 import cc.anisimov.vlad.unsplashtest.data.db.AppDatabase
 import cc.anisimov.vlad.unsplashtest.data.network.UnsplashService
 import cc.anisimov.vlad.unsplashtest.data.network.interceptor.AuthInterceptor
+import com.ihsanbal.logging.Level
+import com.ihsanbal.logging.LoggingInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,6 +19,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -41,6 +46,20 @@ class AppModule {
     @Singleton
     @Provides
     fun provideOkHttpClient(authInterceptor: AuthInterceptor) = OkHttpClient.Builder()
+        .connectTimeout(15, TimeUnit.SECONDS)
+        .readTimeout(20, TimeUnit.SECONDS)
+        .writeTimeout(20, TimeUnit.SECONDS)
+        .apply {
+            if (BuildConfig.DEBUG) {
+                val prettyLoggingInterceptor = LoggingInterceptor.Builder()
+                    .setLevel(Level.BODY)
+                    .log(Log.INFO)
+                    .request("Request")
+                    .response("Response")
+                    .build()
+                addInterceptor(prettyLoggingInterceptor)
+            }
+        }
         .addInterceptor(authInterceptor)
         .build()
 
@@ -66,6 +85,6 @@ class AppModule {
 
     companion object {
         private const val BASE_URL = "https://api.unsplash.com/"
-        private const val MEDIA_TYPE_JSON = "application/json; charset=UTF8"
+        private const val MEDIA_TYPE_JSON = "application/json; charset=UTF-8"
     }
 }

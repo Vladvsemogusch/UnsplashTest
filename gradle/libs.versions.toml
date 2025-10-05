@@ -12,6 +12,7 @@ compose-destinations = "2.2.0"
 coroutines = "1.10.2"
 core-desugaring = "2.1.5"
 retrofit = "3.0.0"
+okhttp-pretty-logger = "3.1.0"
 coil = "2.7.0"
 room = "2.8.1"
 material = "1.13.0"
@@ -45,6 +46,9 @@ hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", ve
 # Retrofit
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 kotlinx-serialization-converter = { module = "com.squareup.retrofit2:converter-kotlinx-serialization", version.ref = "kotlinx-serialization-converter" }
+
+# OkHttp
+okhttp-pretty-logger = { module = "com.github.ihsanbal:LoggingInterceptor", version.ref = "okhttp-pretty-logger" }
 
 # Coil
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }

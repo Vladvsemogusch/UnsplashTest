@@ -24,6 +24,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     packaging {
@@ -70,6 +71,11 @@ dependencies {
     // Retrofit
     implementation(libs.retrofit)
     implementation(libs.kotlinx.serialization.converter)
+
+    // OkHttp
+    implementation(libs.okhttp.pretty.logger) {
+        exclude(group = "org.json", module = "json")
+    }
 
     // Room
     implementation(libs.room)
