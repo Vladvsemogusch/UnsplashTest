@@ -26,7 +26,6 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cc.anisimov.vlad.unsplashtest.R
 import cc.anisimov.vlad.unsplashtest.domain.model.Photo
-import cc.anisimov.vlad.unsplashtest.domain.model.User
 import cc.anisimov.vlad.unsplashtest.ui.base.UIEvent
 import cc.anisimov.vlad.unsplashtest.ui.base.handleEvents
 import cc.anisimov.vlad.unsplashtest.ui.base.navigation.AppGraph
@@ -159,56 +158,46 @@ private fun ImageListScreenContent(
 
 @Preview
 @Composable
-private fun ImageListScreenContentLoadedPreview() {
+private fun ImageListScreenContent_Ready_Preview() {
     val screenState = ImageListScreenState.Content.Ready(
-        photoList = listOf()
-    )
-    val screenActions = object : ImageListScreenActions {
-        override fun onBookmarkClick(photo: Photo) {}
-        override fun onAuthorClick(author: User) {}
-        override fun onListBottomItemReached() {}
-    }
-    UnsplashTestTheme {
-        ImageListScreen(
-            screenState = screenState,
-            screenActions = screenActions,
-            snackbarHostState = remember {
-                SnackbarHostState()
-            },
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun ImageListScreenContentLoadingMorePreview() {
-    val screenState = ImageListScreenState.Content.LoadingMore(
-        photoList = listOf()
+        photoList = listOf(Photo.stub)
     )
 
     UnsplashTestTheme {
         ImageListScreen(
             screenState = screenState,
             screenActions = ImageListScreenActions.Empty,
-            snackbarHostState = remember {
-                SnackbarHostState()
-            },
+            snackbarHostState = remember { SnackbarHostState() },
         )
     }
 }
 
 @Preview
 @Composable
-private fun ImageListScreenLoadingPreview() {
+private fun ImageListScreenContent_LoadingMore_Preview() {
+    val screenState = ImageListScreenState.Content.LoadingMore(
+        photoList = listOf(Photo.stub)
+    )
+
+    UnsplashTestTheme {
+        ImageListScreen(
+            screenState = screenState,
+            screenActions = ImageListScreenActions.Empty,
+            snackbarHostState = remember { SnackbarHostState() },
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun ImageListScreen_InitialLoading_Preview() {
     val screenState = ImageListScreenState.InitialLoading
 
     UnsplashTestTheme {
         ImageListScreen(
             screenState = screenState,
             screenActions = ImageListScreenActions.Empty,
-            snackbarHostState = remember {
-                SnackbarHostState()
-            },
+            snackbarHostState = remember { SnackbarHostState() },
         )
     }
 }

@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import cc.anisimov.vlad.unsplashtest.R
+import cc.anisimov.vlad.unsplashtest.domain.model.User
 import cc.anisimov.vlad.unsplashtest.ui.base.UIEvent
 import cc.anisimov.vlad.unsplashtest.ui.base.component.UrlImage
 import cc.anisimov.vlad.unsplashtest.ui.base.handleEvents
@@ -108,9 +109,11 @@ private fun AuthorProfileScreen(
 @Composable
 private fun AuthorProfileScreenContentPreview() {
     val screenState = AuthorProfileScreenState(
-        name = "John Smith", bio = "Bio text", profileImageUrl = null
+        name = User.stub.name,
+        bio = User.stub.bio,
+        profileImageUrl = User.stub.profileImageUrl
     )
-    
+
     UnsplashTestTheme {
         AuthorProfileScreen(
             screenState = screenState,
