@@ -4,7 +4,6 @@ import androidx.compose.runtime.Stable
 
 @Stable
 interface AuthorProfileScreenActions {
-
     fun onBackPress()
 
     companion object {

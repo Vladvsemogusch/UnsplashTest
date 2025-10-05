@@ -8,10 +8,10 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 open class BaseViewModel : ViewModel() {
-    private val _event = Channel<UIEvent>()
-    val eventsFlow = _event.receiveAsFlow()
+    private val eventsChannel = Channel<UIEvent>()
+    val eventsFlow = eventsChannel.receiveAsFlow()
 
     protected fun sendEvent(event: UIEvent) {
-        viewModelScope.launch(Dispatchers.Main.immediate) { _event.send(event) }
+        viewModelScope.launch(Dispatchers.Main.immediate) { eventsChannel.send(event) }
     }
 }

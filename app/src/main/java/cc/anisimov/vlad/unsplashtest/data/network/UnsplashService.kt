@@ -5,7 +5,8 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface UnsplashService {
-
     @GET("photos")
-    suspend fun getLatestPhotos(@Query("page") page: Int): List<PhotoApiModel>
+    suspend fun getLatestPhotos(
+        @Query("page") page: Int,
+    ): List<PhotoApiModel>
 }

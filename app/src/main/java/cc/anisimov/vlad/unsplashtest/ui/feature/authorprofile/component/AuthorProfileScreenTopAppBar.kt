@@ -18,8 +18,10 @@ import cc.anisimov.vlad.unsplashtest.ui.theme.UnsplashTestTheme
 @Composable
 internal fun AuthorProfileScreenTopAppBar(onBackPress: () -> Unit) {
     TopAppBar(
-        colors = TopAppBarDefaults.topAppBarColors()
-            .copy(containerColor = MaterialTheme.colorScheme.primary),
+        colors =
+            TopAppBarDefaults
+                .topAppBarColors()
+                .copy(containerColor = MaterialTheme.colorScheme.primary),
         navigationIcon = {
             IconButton(onClick = onBackPress) {
                 Icon(
@@ -31,9 +33,9 @@ internal fun AuthorProfileScreenTopAppBar(onBackPress: () -> Unit) {
         title = {
             Text(
                 text = stringResource(id = R.string.author_profile),
-                style = MaterialTheme.typography.displayLarge
+                style = MaterialTheme.typography.displayLarge,
             )
-        }
+        },
     )
 }
 

@@ -14,16 +14,18 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ImageListViewModel @Inject constructor(
+class ImageListViewModel
+@Inject
+constructor(
     private val addPhotoBookmarkInteractor: AddPhotoBookmarkInteractor,
     private val deletePhotoBookmarkInteractor: DeletePhotoBookmarkInteractor,
-    private val imageListPager: ImageListPager
-) : BaseViewModel(), ImageListScreenActions {
-
+    private val imageListPager: ImageListPager,
+) : BaseViewModel(),
+    ImageListScreenActions {
     val screenState =
         combine(
             imageListPager.isLoadingFlow,
-            imageListPager.imageListFlow
+            imageListPager.imageListFlow,
         ) { isLoading, latestPhotos ->
             when {
                 latestPhotos.isEmpty() && isLoading -> {

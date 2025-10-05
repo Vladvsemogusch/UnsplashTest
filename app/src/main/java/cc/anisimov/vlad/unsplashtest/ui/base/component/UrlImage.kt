@@ -23,7 +23,7 @@ fun UrlImage(
     url: String?,
     scale: ContentScale = ContentScale.Crop,
     shape: Shape = RoundedCornerShape(0.dp),
-    colorFilter: ColorFilter? = null
+    colorFilter: ColorFilter? = null,
 ) {
     SubcomposeAsyncImage(
         contentScale = scale,
@@ -34,9 +34,10 @@ fun UrlImage(
     ) {
         if (painter.state is AsyncImagePainter.State.Loading || painter.state is AsyncImagePainter.State.Error) {
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(1f)
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(1f),
             ) {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }

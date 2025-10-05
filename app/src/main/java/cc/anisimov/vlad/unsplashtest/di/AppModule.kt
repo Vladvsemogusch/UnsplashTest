@@ -25,49 +25,52 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {
-
     @Singleton
     @Provides
-    fun provideUnsplashService(retrofit: Retrofit): UnsplashService {
-        return retrofit.create(UnsplashService::class.java)
-    }
+    fun provideUnsplashService(retrofit: Retrofit): UnsplashService = retrofit.create(UnsplashService::class.java)
 
     @Singleton
     @Provides
     fun provideRetrofit(
         converterFactory: Converter.Factory,
-        okHttpClient: OkHttpClient
-    ): Retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .addConverterFactory(converterFactory)
-        .client(okHttpClient)
-        .build()
+        okHttpClient: OkHttpClient,
+    ): Retrofit =
+        Retrofit
+            .Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(converterFactory)
+            .client(okHttpClient)
+            .build()
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(authInterceptor: AuthInterceptor) = OkHttpClient.Builder()
-        .connectTimeout(15, TimeUnit.SECONDS)
-        .readTimeout(20, TimeUnit.SECONDS)
-        .writeTimeout(20, TimeUnit.SECONDS)
-        .apply {
-            if (BuildConfig.DEBUG) {
-                val prettyLoggingInterceptor = LoggingInterceptor.Builder()
-                    .setLevel(Level.BODY)
-                    .log(Log.INFO)
-                    .request("Request")
-                    .response("Response")
-                    .build()
-                addInterceptor(prettyLoggingInterceptor)
-            }
-        }
-        .addInterceptor(authInterceptor)
-        .build()
+    fun provideOkHttpClient(authInterceptor: AuthInterceptor) =
+        OkHttpClient
+            .Builder()
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(20, TimeUnit.SECONDS)
+            .writeTimeout(20, TimeUnit.SECONDS)
+            .apply {
+                if (BuildConfig.DEBUG) {
+                    val prettyLoggingInterceptor =
+                        LoggingInterceptor
+                            .Builder()
+                            .setLevel(Level.BODY)
+                            .log(Log.INFO)
+                            .request("Request")
+                            .response("Response")
+                            .build()
+                    addInterceptor(prettyLoggingInterceptor)
+                }
+            }.addInterceptor(authInterceptor)
+            .build()
 
     @Singleton
     @Provides
-    fun providesJsonConverterFactory(json: Json): Converter.Factory = json.asConverterFactory(
-        MEDIA_TYPE_JSON.toMediaType()
-    )
+    fun providesJsonConverterFactory(json: Json): Converter.Factory =
+        json.asConverterFactory(
+            MEDIA_TYPE_JSON.toMediaType(),
+        )
 
     @Singleton
     @Provides
@@ -75,9 +78,9 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
-        return AppDatabase.createInstance(context)
-    }
+    fun provideAppDatabase(
+        @ApplicationContext context: Context,
+    ): AppDatabase = AppDatabase.createInstance(context)
 
     @Singleton
     @Provides

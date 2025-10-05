@@ -25,12 +25,16 @@ import cc.anisimov.vlad.unsplashtest.ui.base.component.UrlImage
 import cc.anisimov.vlad.unsplashtest.ui.feature.imagelist.ImageListScreenActions
 
 @Composable
-fun ImageItem(photo: Photo, screenActions: ImageListScreenActions) {
-    val bookmarkIconResId = if (photo.isBookmarked) {
-        R.drawable.ic_bookmark_filled
-    } else {
-        R.drawable.ic_bookmark
-    }
+fun ImageItem(
+    photo: Photo,
+    screenActions: ImageListScreenActions,
+) {
+    val bookmarkIconResId =
+        if (photo.isBookmarked) {
+            R.drawable.ic_bookmark_filled
+        } else {
+            R.drawable.ic_bookmark
+        }
 
     Card(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
         Box {
@@ -39,33 +43,35 @@ fun ImageItem(photo: Photo, screenActions: ImageListScreenActions) {
                 url = photo.url,
             )
             IconButton(
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .padding(16.dp)
-                    .background(
-                        color = MaterialTheme.colorScheme.background.copy(alpha = 0.5f),
-                        shape = CircleShape
-                    )
-                    .size(48.dp),
+                modifier =
+                    Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(16.dp)
+                        .background(
+                            color = MaterialTheme.colorScheme.background.copy(alpha = 0.5f),
+                            shape = CircleShape,
+                        )
+                        .size(48.dp),
                 onClick = { screenActions.onBookmarkClick(photo) },
             ) {
                 Image(painter = painterResource(bookmarkIconResId), contentDescription = null)
             }
             Text(
-                modifier = Modifier
-                    .align(Alignment.BottomStart)
-                    .padding(16.dp)
-                    .clickable {
-                        screenActions.onAuthorClick(photo.author)
-                    }
-                    .background(
-                        color = MaterialTheme.colorScheme.background.copy(alpha = 0.5f),
-                        shape = MaterialTheme.shapes.small
-                    )
-                    .padding(vertical = 4.dp, horizontal = 8.dp),
+                modifier =
+                    Modifier
+                        .align(Alignment.BottomStart)
+                        .padding(16.dp)
+                        .clickable {
+                            screenActions.onAuthorClick(photo.author)
+                        }
+                        .background(
+                            color = MaterialTheme.colorScheme.background.copy(alpha = 0.5f),
+                            shape = MaterialTheme.shapes.small,
+                        )
+                        .padding(vertical = 4.dp, horizontal = 8.dp),
                 text = photo.authorName,
                 style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurface,
             )
         }
     }
@@ -75,14 +81,15 @@ fun ImageItem(photo: Photo, screenActions: ImageListScreenActions) {
 @Composable
 private fun ImageItemPreview() {
     ImageItem(
-        photo = Photo(
-            id = "1",
-            url = "",
-            authorName = "Author Name",
-            author = User("1", "author_username", "", ""),
-            isBookmarked = false,
-            description = "Image Description"
-        ),
-        screenActions = ImageListScreenActions.Empty
+        photo =
+            Photo(
+                id = "1",
+                url = "",
+                authorName = "Author Name",
+                author = User("1", "author_username", "", ""),
+                isBookmarked = false,
+                description = "Image Description",
+            ),
+        screenActions = ImageListScreenActions.Empty,
     )
 }

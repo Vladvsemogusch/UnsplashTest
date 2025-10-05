@@ -12,7 +12,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class DispatchersModule {
-
     @DispatcherIO
     @Singleton
     @Provides

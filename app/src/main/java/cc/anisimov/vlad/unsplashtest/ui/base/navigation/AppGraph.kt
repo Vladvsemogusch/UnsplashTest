@@ -5,6 +5,6 @@ import com.ramcosta.composedestinations.annotation.RootGraph
 
 @NavGraph<RootGraph>(
     defaultTransitions = DefaultAnimatedDestinationStyle::class,
-    start = true
+    start = true,
 )
 annotation class AppGraph

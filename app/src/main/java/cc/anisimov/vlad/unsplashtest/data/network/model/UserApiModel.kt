@@ -1,6 +1,5 @@
 package cc.anisimov.vlad.unsplashtest.data.network.model
 
-
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -29,5 +28,5 @@ data class UserApiModel(
     @SerialName("twitter_username")
     val twitterUsername: String?,
     @SerialName("username")
-    val username: String
+    val username: String,
 )

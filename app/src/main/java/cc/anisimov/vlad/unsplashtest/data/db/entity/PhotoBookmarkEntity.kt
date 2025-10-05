@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "photo_bookmark")
 class PhotoBookmarkEntity(
     @PrimaryKey
-    @ColumnInfo(name="photo_id")
+    @ColumnInfo(name = "photo_id")
     val photoId: String,
 )

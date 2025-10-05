@@ -41,7 +41,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 @Composable
 fun ImageListRoute(
     navigator: DestinationsNavigator,
-    viewModel: ImageListViewModel = hiltViewModel()
+    viewModel: ImageListViewModel = hiltViewModel(),
 ) {
     val screenState by viewModel.screenState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -54,7 +54,7 @@ fun ImageListRoute(
     ImageListScreen(
         screenState = screenState,
         screenActions = viewModel,
-        snackbarHostState = snackbarHostState
+        snackbarHostState = snackbarHostState,
     )
 }
 
@@ -62,21 +62,22 @@ private suspend fun handleEvent(
     event: UIEvent,
     navigator: DestinationsNavigator,
     snackbarHostState: SnackbarHostState,
-    context: Context
+    context: Context,
 ) {
     when (event) {
         is ImageListScreenEvent.GoToAuthorProfile -> {
             navigator.navigate(
-                direction = AuthorProfileRouteDestination(event.author)
+                direction = AuthorProfileRouteDestination(event.author),
             )
         }
 
         is ImageListScreenEvent.ShowError -> {
-            val text = if (event.message != null) {
-                context.getString(R.string.error_message, event.message)
-            } else {
-                context.getString(R.string.error_no_message)
-            }
+            val text =
+                if (event.message != null) {
+                    context.getString(R.string.error_message, event.message)
+                } else {
+                    context.getString(R.string.error_no_message)
+                }
             snackbarHostState.showSnackbar(text)
         }
 
@@ -88,11 +89,11 @@ private suspend fun handleEvent(
 private fun ImageListScreen(
     screenState: ImageListScreenState,
     screenActions: ImageListScreenActions,
-    snackbarHostState: SnackbarHostState
+    snackbarHostState: SnackbarHostState,
 ) {
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
-        topBar = { ImageListScreenTopAppBar() }
+        topBar = { ImageListScreenTopAppBar() },
     ) { paddingValues ->
         when (screenState) {
             is ImageListScreenState.InitialLoading -> {
@@ -103,7 +104,7 @@ private fun ImageListScreen(
                 ImageListScreenContent(
                     paddingValues = paddingValues,
                     contentState = screenState,
-                    screenActions = screenActions
+                    screenActions = screenActions,
                 )
             }
         }
@@ -113,9 +114,10 @@ private fun ImageListScreen(
 @Composable
 private fun ImageListScreenLoading(paddingValues: PaddingValues) {
     Box(
-        modifier = Modifier
-            .padding(paddingValues)
-            .fillMaxSize()
+        modifier =
+            Modifier
+                .padding(paddingValues)
+                .fillMaxSize(),
     ) {
         CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
     }
@@ -125,7 +127,7 @@ private fun ImageListScreenLoading(paddingValues: PaddingValues) {
 private fun ImageListScreenContent(
     paddingValues: PaddingValues,
     contentState: ImageListScreenState.Content,
-    screenActions: ImageListScreenActions
+    screenActions: ImageListScreenActions,
 ) {
     val listState = rememberLazyListState()
 
@@ -137,7 +139,7 @@ private fun ImageListScreenContent(
 
     LazyColumn(
         modifier = Modifier.padding(paddingValues),
-        state = listState
+        state = listState,
     ) {
         items(items = contentState.photoList, key = { photo -> photo.id }) { photo ->
             ImageItem(photo, screenActions)
@@ -145,9 +147,10 @@ private fun ImageListScreenContent(
         if (contentState is ImageListScreenState.Content.LoadingMore) {
             item {
                 Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(120.dp)
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .height(120.dp),
                 ) {
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                 }
@@ -159,9 +162,10 @@ private fun ImageListScreenContent(
 @Preview
 @Composable
 private fun ImageListScreenContent_Ready_Preview() {
-    val screenState = ImageListScreenState.Content.Ready(
-        photoList = listOf(Photo.stub)
-    )
+    val screenState =
+        ImageListScreenState.Content.Ready(
+            photoList = listOf(Photo.stub),
+        )
 
     UnsplashTestTheme {
         ImageListScreen(
@@ -175,9 +179,10 @@ private fun ImageListScreenContent_Ready_Preview() {
 @Preview
 @Composable
 private fun ImageListScreenContent_LoadingMore_Preview() {
-    val screenState = ImageListScreenState.Content.LoadingMore(
-        photoList = listOf(Photo.stub)
-    )
+    val screenState =
+        ImageListScreenState.Content.LoadingMore(
+            photoList = listOf(Photo.stub),
+        )
 
     UnsplashTestTheme {
         ImageListScreen(

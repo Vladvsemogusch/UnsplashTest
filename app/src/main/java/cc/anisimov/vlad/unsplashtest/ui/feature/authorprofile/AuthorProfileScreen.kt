@@ -33,7 +33,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 @Composable
 fun AuthorProfileRoute(
     navigator: DestinationsNavigator,
-    viewModel: AuthorProfileViewModel = hiltViewModel()
+    viewModel: AuthorProfileViewModel = hiltViewModel(),
 ) {
     handleEvents(eventsFlow = viewModel.eventsFlow) { event ->
         handleEvent(event = event, navigator = navigator)
@@ -42,7 +42,10 @@ fun AuthorProfileRoute(
     AuthorProfileScreen(viewModel.screenState, viewModel)
 }
 
-private fun handleEvent(event: UIEvent, navigator: DestinationsNavigator) {
+private fun handleEvent(
+    event: UIEvent,
+    navigator: DestinationsNavigator,
+) {
     when (event) {
         is AuthorProfileScreenEvent.GoBack -> {
             navigator.popBackStack()
@@ -59,46 +62,50 @@ private fun AuthorProfileScreen(
 ) {
     Scaffold(topBar = { AuthorProfileScreenTopAppBar(screenActions::onBackPress) }) { paddingValues ->
         Column(
-            modifier = Modifier
-                .padding(paddingValues)
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier =
+                Modifier
+                    .padding(paddingValues)
+                    .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             UrlImage(
-                modifier = Modifier
-                    .padding(top = 48.dp)
-                    .size(96.dp),
+                modifier =
+                    Modifier
+                        .padding(top = 48.dp)
+                        .size(96.dp),
                 url = screenState.profileImageUrl,
-                shape = CircleShape
+                shape = CircleShape,
             )
             Text(
                 modifier = Modifier.padding(top = 16.dp),
                 text = screenState.name,
-                style = MaterialTheme.typography.displayLarge
+                style = MaterialTheme.typography.displayLarge,
             )
             if (screenState.bio != null) {
                 HorizontalDivider(
-                    modifier = Modifier
-                        .padding(top = 16.dp)
-                        .width(32.dp),
+                    modifier =
+                        Modifier
+                            .padding(top = 16.dp)
+                            .width(32.dp),
                     color = MaterialTheme.colorScheme.primary,
-                    thickness = 1.dp
+                    thickness = 1.dp,
                 )
                 Text(
                     modifier = Modifier.padding(top = 16.dp),
                     text = stringResource(id = R.string.bio),
-                    style = MaterialTheme.typography.titleLarge
+                    style = MaterialTheme.typography.titleLarge,
                 )
                 Text(
-                    modifier = Modifier
-                        .padding(top = 16.dp, start = 16.dp, end = 16.dp)
-                        .background(
-                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f),
-                            shape = MaterialTheme.shapes.medium
-                        )
-                        .padding(8.dp),
+                    modifier =
+                        Modifier
+                            .padding(top = 16.dp, start = 16.dp, end = 16.dp)
+                            .background(
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f),
+                                shape = MaterialTheme.shapes.medium,
+                            )
+                            .padding(8.dp),
                     text = screenState.bio,
-                    style = MaterialTheme.typography.bodyLarge
+                    style = MaterialTheme.typography.bodyLarge,
                 )
             }
         }
@@ -108,11 +115,12 @@ private fun AuthorProfileScreen(
 @Preview
 @Composable
 private fun AuthorProfileScreenContentPreview() {
-    val screenState = AuthorProfileScreenState(
-        name = User.stub.name,
-        bio = User.stub.bio,
-        profileImageUrl = User.stub.profileImageUrl
-    )
+    val screenState =
+        AuthorProfileScreenState(
+            name = User.stub.name,
+            bio = User.stub.bio,
+            profileImageUrl = User.stub.profileImageUrl,
+        )
 
     UnsplashTestTheme {
         AuthorProfileScreen(

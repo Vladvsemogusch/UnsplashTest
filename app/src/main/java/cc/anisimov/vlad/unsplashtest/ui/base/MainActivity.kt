@@ -15,18 +15,17 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             UnsplashTestTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = MaterialTheme.colorScheme.background,
                 ) {
                     DestinationsNavHost(
                         navGraph = NavGraphs.root,
-                        engine = rememberNavHostEngine()
+                        engine = rememberNavHostEngine(),
                     )
                 }
             }

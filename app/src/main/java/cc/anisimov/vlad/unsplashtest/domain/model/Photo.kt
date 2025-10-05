@@ -6,9 +6,8 @@ data class Photo(
     val url: String,
     val authorName: String,
     val author: User,
-    val isBookmarked: Boolean
+    val isBookmarked: Boolean,
 ) {
-
     companion object {
         val stub by lazy {
             Photo(

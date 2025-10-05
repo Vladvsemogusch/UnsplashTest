@@ -8,16 +8,15 @@ data class User(
     val id: String,
     val name: String,
     val bio: String?,
-    val profileImageUrl: String?
+    val profileImageUrl: String?,
 ) : Parcelable {
-
     companion object {
         val stub by lazy {
             User(
                 id = "1",
                 name = "John Smith",
                 bio = "Bio text",
-                profileImageUrl = null
+                profileImageUrl = null,
             )
         }
     }

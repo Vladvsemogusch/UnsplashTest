@@ -12,23 +12,25 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class GetLatestPhotosPageInteractor @Inject constructor(
+class GetLatestPhotosPageInteractor
+@Inject
+constructor(
     private val photoRepository: PhotoRepository,
     private val bookmarkRepository: PhotoBookmarkRepository,
-    @param:DispatcherDefault private val dispatcher: CoroutineDispatcher
+    @param:DispatcherDefault private val dispatcher: CoroutineDispatcher,
 ) {
-
-    suspend operator fun invoke(page: Int): Flow<List<Photo>> = withContext(dispatcher) {
-        val dtoPhotoModels = photoRepository.getLatestPhotos(page)
-        val dtoPhotoBookmarksFlow = bookmarkRepository.getAllBookmarks()
-        dtoPhotoBookmarksFlow.map { assemblePhotos(dtoPhotoModels, it) }
-    }
+    suspend operator fun invoke(page: Int): Flow<List<Photo>> =
+        withContext(dispatcher) {
+            val dtoPhotoModels = photoRepository.getLatestPhotos(page)
+            val dtoPhotoBookmarksFlow = bookmarkRepository.getAllBookmarks()
+            dtoPhotoBookmarksFlow.map { assemblePhotos(dtoPhotoModels, it) }
+        }
 
     private fun assemblePhotos(
         apiPhotoModels: List<PhotoDto>,
-        photoBookmarkEntities: List<PhotoBookmarkDto>
-    ): List<Photo> {
-        return apiPhotoModels.map { photo ->
+        photoBookmarkEntities: List<PhotoBookmarkDto>,
+    ): List<Photo> =
+        apiPhotoModels.map { photo ->
             with(photo) {
                 Photo(
                     id = id,
@@ -36,10 +38,8 @@ class GetLatestPhotosPageInteractor @Inject constructor(
                     url = urls.small,
                     authorName = authorName,
                     author = author,
-                    isBookmarked = photoBookmarkEntities.any { it.photoId == id }
+                    isBookmarked = photoBookmarkEntities.any { it.photoId == id },
                 )
             }
         }
     }
-
-}

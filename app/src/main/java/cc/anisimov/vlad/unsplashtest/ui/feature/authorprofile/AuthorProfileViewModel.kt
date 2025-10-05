@@ -7,20 +7,22 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthorProfileViewModel @Inject constructor(
+class AuthorProfileViewModel
+@Inject
+constructor(
     handle: SavedStateHandle,
-) : BaseViewModel(), AuthorProfileScreenActions {
-
+) : BaseViewModel(),
+    AuthorProfileScreenActions {
     private val author = AuthorProfileRouteDestination.argsFrom(handle).author
 
-    val screenState = AuthorProfileScreenState(
-        name = author.name,
-        bio = author.bio,
-        profileImageUrl = author.profileImageUrl
-    )
+    val screenState =
+        AuthorProfileScreenState(
+            name = author.name,
+            bio = author.bio,
+            profileImageUrl = author.profileImageUrl,
+        )
 
     override fun onBackPress() {
         sendEvent(AuthorProfileScreenEvent.GoBack)
     }
-
 }

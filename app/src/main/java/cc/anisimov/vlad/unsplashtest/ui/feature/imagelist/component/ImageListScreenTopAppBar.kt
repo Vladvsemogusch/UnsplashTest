@@ -17,14 +17,16 @@ import cc.anisimov.vlad.unsplashtest.ui.theme.UnsplashTestTheme
 fun ImageListScreenTopAppBar(modifier: Modifier = Modifier) {
     TopAppBar(
         modifier = modifier,
-        colors = TopAppBarDefaults.topAppBarColors()
-            .copy(containerColor = MaterialTheme.colorScheme.primary),
+        colors =
+            TopAppBarDefaults
+                .topAppBarColors()
+                .copy(containerColor = MaterialTheme.colorScheme.primary),
         title = {
             Text(
                 text = stringResource(id = R.string.app_name),
-                style = MaterialTheme.typography.displayLarge
+                style = MaterialTheme.typography.displayLarge,
             )
-        }
+        },
     )
 }
 

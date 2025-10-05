@@ -1,6 +1,5 @@
 package cc.anisimov.vlad.unsplashtest.data.network.model
 
-
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -15,5 +14,5 @@ data class PhotoUrlsApiModel(
     @SerialName("small")
     val small: String,
     @SerialName("thumb")
-    val thumb: String
+    val thumb: String,
 )

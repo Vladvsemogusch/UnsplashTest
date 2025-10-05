@@ -1,6 +1,5 @@
 package cc.anisimov.vlad.unsplashtest.data.network.model
 
-
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -29,5 +28,5 @@ data class PhotoApiModel(
     @SerialName("user")
     val user: UserApiModel,
     @SerialName("width")
-    val width: Int
+    val width: Int,
 )

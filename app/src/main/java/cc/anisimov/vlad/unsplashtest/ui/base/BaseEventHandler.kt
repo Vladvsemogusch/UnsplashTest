@@ -17,19 +17,19 @@ import kotlinx.coroutines.launch
 @Composable
 fun handleEvents(
     eventsFlow: Flow<UIEvent>,
-    eventHandler: suspend (UIEvent) -> Unit
+    eventHandler: suspend (UIEvent) -> Unit,
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
-    val flowWithLifecycle = remember(lifecycleOwner, eventsFlow) {
-        eventsFlow.flowWithLifecycle(lifecycleOwner.lifecycle)
-    }
+    val flowWithLifecycle =
+        remember(lifecycleOwner, eventsFlow) {
+            eventsFlow.flowWithLifecycle(lifecycleOwner.lifecycle)
+        }
 
     LaunchedEffect(eventsFlow) {
         flowWithLifecycle
             .onEach {
                 launch { eventHandler(it) }
-            }
-            .flowOn(Dispatchers.Main.immediate)
+            }.flowOn(Dispatchers.Main.immediate)
             .collect()
     }
 }

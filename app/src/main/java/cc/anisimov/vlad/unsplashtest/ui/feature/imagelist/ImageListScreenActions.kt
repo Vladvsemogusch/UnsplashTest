@@ -6,7 +6,6 @@ import cc.anisimov.vlad.unsplashtest.domain.model.User
 
 @Stable
 interface ImageListScreenActions {
-
     fun onBookmarkClick(photo: Photo)
 
     fun onAuthorClick(author: User)
@@ -17,7 +16,9 @@ interface ImageListScreenActions {
         val Empty by lazy {
             object : ImageListScreenActions {
                 override fun onBookmarkClick(photo: Photo) {}
+
                 override fun onAuthorClick(author: User) {}
+
                 override fun onListBottomItemReached() {}
             }
         }

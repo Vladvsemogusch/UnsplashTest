@@ -13,17 +13,17 @@ import androidx.navigation.NavBackStackEntry
 import com.ramcosta.composedestinations.spec.DestinationStyle
 
 object DefaultAnimatedDestinationStyle : DestinationStyle.Animated() {
-
     override val enterTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition? =
         {
             fadeIn(
-                animationSpec = tween(DEFAULT_ANIM_DURATION)
-            ) + slideIn(
                 animationSpec = tween(DEFAULT_ANIM_DURATION),
-                initialOffset = { contentSize ->
-                    IntOffset(x = contentSize.width / 2, y = 0)
-                }
-            )
+            ) +
+                slideIn(
+                    animationSpec = tween(DEFAULT_ANIM_DURATION),
+                    initialOffset = { contentSize ->
+                        IntOffset(x = contentSize.width / 2, y = 0)
+                    },
+                )
         }
 
     override val exitTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition? =
@@ -39,12 +39,14 @@ object DefaultAnimatedDestinationStyle : DestinationStyle.Animated() {
     override val popExitTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition? =
         {
             fadeOut(
-                animationSpec = tween(DEFAULT_ANIM_DURATION)
-            ) + slideOut(
                 animationSpec = tween(DEFAULT_ANIM_DURATION),
-                targetOffset = { contentSize ->
-                    IntOffset(x = contentSize.width / 2, y = 0)
-                })
+            ) +
+                slideOut(
+                    animationSpec = tween(DEFAULT_ANIM_DURATION),
+                    targetOffset = { contentSize ->
+                        IntOffset(x = contentSize.width / 2, y = 0)
+                    },
+                )
         }
 
     const val DEFAULT_ANIM_DURATION = 300

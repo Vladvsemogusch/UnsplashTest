@@ -8,7 +8,6 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 
-
 @SuppressLint("ComposableNaming")
 @Composable
 fun LazyListState.onBottomItemReached(
@@ -17,8 +16,9 @@ fun LazyListState.onBottomItemReached(
 ) {
     val isBottomItemReached by remember {
         derivedStateOf {
-            val lastVisibleItem = layoutInfo.visibleItemsInfo.lastOrNull()
-                ?: return@derivedStateOf true
+            val lastVisibleItem =
+                layoutInfo.visibleItemsInfo.lastOrNull()
+                    ?: return@derivedStateOf true
 
             lastVisibleItem.index == layoutInfo.totalItemsCount - 1 - itemIndexFromBottom
         }
