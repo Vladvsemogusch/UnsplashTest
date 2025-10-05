@@ -29,13 +29,17 @@ class ImageListPager @Inject constructor(private val getLatestPhotosPageInteract
         tryCoroutine(
             tryFun = {
                 _imageListFlow.update { photoList ->
-                    photoList + getLatestPhotosPageInteractor(++lastPage)
+                    val nextPhotos = getLatestPhotosPageInteractor(++lastPage)
+                    //  Latest photos change quickly, so pages can contain duplicates from other pages
+                    val currentIds = photoList.map { it.id }
+                    val nextPhotosDeduplicated = nextPhotos.filterNot { it.id in currentIds }
+                    photoList + nextPhotosDeduplicated
                 }
             },
-            catchFun =
-            { throwable ->
+            catchFun = { throwable ->
                 _errorFlow.emit(throwable)
-            })
+            }
+        )
         _isLoadingFlow.value = false
     }
 
