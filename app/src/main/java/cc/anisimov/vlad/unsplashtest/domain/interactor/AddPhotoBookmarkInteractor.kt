@@ -4,9 +4,9 @@ import cc.anisimov.vlad.unsplashtest.data.repository.PhotoBookmarkRepository
 import javax.inject.Inject
 
 class AddPhotoBookmarkInteractor
-@Inject
-constructor(
-    private val bookmarkRepository: PhotoBookmarkRepository,
-) {
-    suspend operator fun invoke(photoId: String) = bookmarkRepository.addPhotoBookmark(photoId)
-}
+    @Inject
+    constructor(
+        private val bookmarkRepository: PhotoBookmarkRepository,
+    ) {
+        suspend operator fun invoke(photoId: String) = bookmarkRepository.addPhotoBookmark(photoId)
+    }

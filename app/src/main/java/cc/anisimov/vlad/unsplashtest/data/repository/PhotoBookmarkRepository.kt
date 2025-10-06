@@ -11,24 +11,24 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class PhotoBookmarkRepository
-@Inject
-constructor(
-    private val photoBookmarkLocalDataSource: PhotoBookmarkLocalDataSource,
-    private val bookmarkMapper: EntityPhotoBookmarkMapper,
-    @param:DispatcherIO private val dispatcher: CoroutineDispatcher,
-) {
-    fun getAllBookmarks(): Flow<List<PhotoBookmarkDto>> =
-        photoBookmarkLocalDataSource
-            .getAllBookmarks()
-            .map { entityPhotoBookmarkList -> bookmarkMapper.map(entityPhotoBookmarkList) }
+    @Inject
+    constructor(
+        private val photoBookmarkLocalDataSource: PhotoBookmarkLocalDataSource,
+        private val bookmarkMapper: EntityPhotoBookmarkMapper,
+        @param:DispatcherIO private val dispatcher: CoroutineDispatcher,
+    ) {
+        fun getAllBookmarks(): Flow<List<PhotoBookmarkDto>> =
+            photoBookmarkLocalDataSource
+                .getAllBookmarks()
+                .map { entityPhotoBookmarkList -> bookmarkMapper.map(entityPhotoBookmarkList) }
 
-    suspend fun addPhotoBookmark(photoId: String) =
-        withContext(dispatcher) {
-            photoBookmarkLocalDataSource.addPhotoBookmark(photoId)
-        }
+        suspend fun addPhotoBookmark(photoId: String) =
+            withContext(dispatcher) {
+                photoBookmarkLocalDataSource.addPhotoBookmark(photoId)
+            }
 
-    suspend fun deletePhotoBookmark(photoId: String) =
-        withContext(dispatcher) {
-            photoBookmarkLocalDataSource.deletePhotoBookmark(photoId)
-        }
-}
+        suspend fun deletePhotoBookmark(photoId: String) =
+            withContext(dispatcher) {
+                photoBookmarkLocalDataSource.deletePhotoBookmark(photoId)
+            }
+    }

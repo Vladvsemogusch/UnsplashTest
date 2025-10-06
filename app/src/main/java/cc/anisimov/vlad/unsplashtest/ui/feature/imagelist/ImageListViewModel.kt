@@ -15,68 +15,68 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ImageListViewModel
-@Inject
-constructor(
-    private val addPhotoBookmarkInteractor: AddPhotoBookmarkInteractor,
-    private val deletePhotoBookmarkInteractor: DeletePhotoBookmarkInteractor,
-    private val imageListPager: ImageListPager,
-) : BaseViewModel(),
-    ImageListScreenActions {
-    val screenState =
-        combine(
-            imageListPager.isLoadingFlow,
-            imageListPager.imageListFlow,
-        ) { isLoading, latestPhotos ->
-            when {
-                latestPhotos.isEmpty() && isLoading -> {
-                    ImageListScreenState.InitialLoading
+    @Inject
+    constructor(
+        private val addPhotoBookmarkInteractor: AddPhotoBookmarkInteractor,
+        private val deletePhotoBookmarkInteractor: DeletePhotoBookmarkInteractor,
+        private val imageListPager: ImageListPager,
+    ) : BaseViewModel(),
+        ImageListScreenActions {
+        val screenState =
+            combine(
+                imageListPager.isLoadingFlow,
+                imageListPager.imageListFlow,
+            ) { isLoading, latestPhotos ->
+                when {
+                    latestPhotos.isEmpty() && isLoading -> {
+                        ImageListScreenState.InitialLoading
+                    }
+
+                    latestPhotos.isNotEmpty() && isLoading -> {
+                        ImageListScreenState.Content.LoadingMore(latestPhotos)
+                    }
+
+                    else -> {
+                        ImageListScreenState.Content.Ready(latestPhotos)
+                    }
                 }
+            }.stateIn(viewModelScope, SharingStarted.Eagerly, ImageListScreenState.InitialLoading)
 
-                latestPhotos.isNotEmpty() && isLoading -> {
-                    ImageListScreenState.Content.LoadingMore(latestPhotos)
-                }
-
-                else -> {
-                    ImageListScreenState.Content.Ready(latestPhotos)
-                }
-            }
-        }.stateIn(viewModelScope, SharingStarted.Eagerly, ImageListScreenState.InitialLoading)
-
-    init {
-        //  Initial load
-        viewModelScope.launch {
-            imageListPager.loadMore()
-        }
-        handleImagePagerErrors()
-    }
-
-    private fun handleImagePagerErrors() {
-        viewModelScope.launch {
-            imageListPager.errorFlow.collect { throwable ->
-                sendEvent(ImageListScreenEvent.ShowError(throwable.message))
-            }
-        }
-    }
-
-    override fun onBookmarkClick(photo: Photo) {
-        viewModelScope.launch {
-            if (photo.isBookmarked) {
-                deletePhotoBookmarkInteractor(photo.id)
-            } else {
-                addPhotoBookmarkInteractor(photo.id)
-            }
-        }
-    }
-
-    override fun onAuthorClick(author: User) {
-        sendEvent(ImageListScreenEvent.GoToAuthorProfile(author))
-    }
-
-    override fun onListBottomItemReached() {
-        viewModelScope.launch {
-            if (!imageListPager.isLoadingFlow.value) {
+        init {
+            //  Initial load
+            viewModelScope.launch {
                 imageListPager.loadMore()
             }
+            handleImagePagerErrors()
+        }
+
+        private fun handleImagePagerErrors() {
+            viewModelScope.launch {
+                imageListPager.errorFlow.collect { throwable ->
+                    sendEvent(ImageListScreenEvent.ShowError(throwable.message))
+                }
+            }
+        }
+
+        override fun onBookmarkClick(photo: Photo) {
+            viewModelScope.launch {
+                if (photo.isBookmarked) {
+                    deletePhotoBookmarkInteractor(photo.id)
+                } else {
+                    addPhotoBookmarkInteractor(photo.id)
+                }
+            }
+        }
+
+        override fun onAuthorClick(author: User) {
+            sendEvent(ImageListScreenEvent.GoToAuthorProfile(author))
+        }
+
+        override fun onListBottomItemReached() {
+            viewModelScope.launch {
+                if (!imageListPager.isLoadingFlow.value) {
+                    imageListPager.loadMore()
+                }
+            }
         }
     }
-}
