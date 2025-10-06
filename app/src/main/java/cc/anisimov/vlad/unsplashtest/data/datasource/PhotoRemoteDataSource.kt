@@ -9,5 +9,6 @@ class PhotoRemoteDataSource
 constructor(
     private val unsplashService: UnsplashService,
 ) {
-    suspend fun getLatestPhotos(page: Int): List<PhotoApiModel> = unsplashService.getLatestPhotos(page)
+    suspend fun getLatestPhotos(page: Int): List<PhotoApiModel> =
+        unsplashService.getLatestPhotos(page)
 }
