@@ -95,4 +95,5 @@ dependencies {
 
     //  Kotlinx serialization
     implementation(libs.kotlinx.serialization)
+    implementation(libs.kotlinx.collections.immutable)
 }

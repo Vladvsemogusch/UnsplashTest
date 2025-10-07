@@ -1,8 +1,10 @@
 package cc.anisimov.vlad.unsplashtest.domain.model
 
 import android.os.Parcelable
+import androidx.compose.runtime.Immutable
 import kotlinx.parcelize.Parcelize
 
+@Immutable
 @Parcelize
 data class User(
     val id: String,

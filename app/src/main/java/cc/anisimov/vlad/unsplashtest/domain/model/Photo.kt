@@ -1,5 +1,8 @@
 package cc.anisimov.vlad.unsplashtest.domain.model
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 data class Photo(
     val id: String,
     val description: String?,

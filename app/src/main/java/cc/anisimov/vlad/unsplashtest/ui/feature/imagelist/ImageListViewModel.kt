@@ -7,6 +7,7 @@ import cc.anisimov.vlad.unsplashtest.domain.model.Photo
 import cc.anisimov.vlad.unsplashtest.domain.model.User
 import cc.anisimov.vlad.unsplashtest.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
@@ -27,17 +28,18 @@ class ImageListViewModel
                 imageListPager.isLoadingFlow,
                 imageListPager.imageListFlow,
             ) { isLoading, latestPhotos ->
+                val immutableLatestPhotos = latestPhotos.toPersistentList()
                 when {
                     latestPhotos.isEmpty() && isLoading -> {
                         ImageListScreenState.InitialLoading
                     }
 
                     latestPhotos.isNotEmpty() && isLoading -> {
-                        ImageListScreenState.Content.LoadingMore(latestPhotos)
+                        ImageListScreenState.Content.LoadingMore(immutableLatestPhotos)
                     }
 
                     else -> {
-                        ImageListScreenState.Content.Ready(latestPhotos)
+                        ImageListScreenState.Content.Ready(immutableLatestPhotos)
                     }
                 }
             }.stateIn(viewModelScope, SharingStarted.Eagerly, ImageListScreenState.InitialLoading)

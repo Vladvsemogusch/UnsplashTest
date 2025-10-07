@@ -2,7 +2,6 @@ package cc.anisimov.vlad.unsplashtest.ui.feature.imagelist
 
 import android.content.Context
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -36,6 +35,7 @@ import cc.anisimov.vlad.unsplashtest.ui.theme.UnsplashTestTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.generated.destinations.AuthorProfileRouteDestination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import kotlinx.collections.immutable.persistentListOf
 
 @Destination<AppGraph>(start = true)
 @Composable
@@ -97,12 +97,16 @@ private fun ImageListScreen(
     ) { paddingValues ->
         when (screenState) {
             is ImageListScreenState.InitialLoading -> {
-                ImageListScreenLoading(paddingValues = paddingValues)
+                ImageListScreenLoading(
+                    modifier = Modifier
+                        .padding(paddingValues)
+                        .fillMaxSize(),
+                )
             }
 
             is ImageListScreenState.Content -> {
                 ImageListScreenContent(
-                    paddingValues = paddingValues,
+                    modifier = Modifier.padding(paddingValues),
                     contentState = screenState,
                     screenActions = screenActions,
                 )
@@ -112,20 +116,15 @@ private fun ImageListScreen(
 }
 
 @Composable
-private fun ImageListScreenLoading(paddingValues: PaddingValues) {
-    Box(
-        modifier =
-            Modifier
-                .padding(paddingValues)
-                .fillMaxSize(),
-    ) {
+private fun ImageListScreenLoading(modifier: Modifier) {
+    Box(modifier = modifier) {
         CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
     }
 }
 
 @Composable
 private fun ImageListScreenContent(
-    paddingValues: PaddingValues,
+    modifier: Modifier,
     contentState: ImageListScreenState.Content,
     screenActions: ImageListScreenActions,
 ) {
@@ -138,7 +137,7 @@ private fun ImageListScreenContent(
     )
 
     LazyColumn(
-        modifier = Modifier.padding(paddingValues),
+        modifier = modifier,
         state = listState,
     ) {
         items(items = contentState.photoList, key = { photo -> photo.id }) { photo ->
@@ -164,7 +163,7 @@ private fun ImageListScreenContent(
 private fun ImageListScreenContent_Ready_Preview() {
     val screenState =
         ImageListScreenState.Content.Ready(
-            photoList = listOf(Photo.stub),
+            photoList = persistentListOf(Photo.stub),
         )
 
     UnsplashTestTheme {
@@ -181,7 +180,7 @@ private fun ImageListScreenContent_Ready_Preview() {
 private fun ImageListScreenContent_LoadingMore_Preview() {
     val screenState =
         ImageListScreenState.Content.LoadingMore(
-            photoList = listOf(Photo.stub),
+            photoList = persistentListOf(Photo.stub),
         )
 
     UnsplashTestTheme {
