@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="cc.anisimov.vlad.unsplashtest">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -13,8 +15,8 @@
         tools:targetApi="36">
         <activity
             android:name=".ui.MainActivity"
-            android:screenOrientation="portrait"
             android:exported="true"
+            android:screenOrientation="portrait"
             tools:ignore="DiscouragedApi,LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +25,5 @@
             </intent-filter>
         </activity>
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
