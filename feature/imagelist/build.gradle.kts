@@ -1,38 +1,24 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp)
+    id("kotlin-parcelize")
 }
 
 android {
-    namespace = "cc.anisimov.vlad.unsplashtest"
+    namespace = "cc.anisimov.vlad.unsplashtest.imagelist"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "cc.anisimov.vlad.unsplashtest"
         minSdk = 24
-        targetSdk = 36
-        versionCode = 1
-        versionName = "0.1"
-    }
-
-    buildFeatures {
-        compose = true
-        buildConfig = true
-    }
-
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     compileOptions {
-        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
@@ -46,27 +32,20 @@ android {
 
 ksp {
     // Compose Destinations
-    arg("compose-destinations.moduleName", "app")
+    arg("compose-destinations.moduleName", "imagelist")
     arg("compose-destinations.htmlMermaidGraph", "$rootDir//navigation-docs")
     arg("compose-destinations.mermaidGraph", "$rootDir/navigation-docs")
 }
 
 dependencies {
-    implementation(project(":feature:imagelist"))
-    implementation(project(":data"))
     implementation(project(":domain"))
     implementation(project(":core:ui"))
 
     implementation(libs.bundles.compose)
     implementation(libs.bundles.hilt)
     ksp(libs.hilt.compiler)
-    implementation(libs.bundles.retrofit)
-    implementation(libs.okhttp.pretty.logger)
-    implementation(libs.kotlinx.serialization)
-    implementation(libs.bundles.room)
-    ksp(libs.room.compiler)
     implementation(libs.compose.destinations.core)
     ksp(libs.compose.destinations.ksp)
     implementation(libs.kotlin.coroutines)
-    coreLibraryDesugaring(libs.core.desugaring)
+    implementation(libs.kotlinx.collections.immutable)
 }

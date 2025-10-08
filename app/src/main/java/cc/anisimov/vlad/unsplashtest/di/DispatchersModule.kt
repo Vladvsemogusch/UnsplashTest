@@ -1,12 +1,13 @@
 package cc.anisimov.vlad.unsplashtest.di
 
+import cc.anisimov.vlad.unsplashtest.domain.di.DispatcherDefault
+import cc.anisimov.vlad.unsplashtest.domain.di.DispatcherIO
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
@@ -22,11 +23,3 @@ class DispatchersModule {
     @Provides
     fun provideDefaultDispatcher(): CoroutineDispatcher = Dispatchers.Default
 }
-
-@Retention(AnnotationRetention.BINARY)
-@Qualifier
-annotation class DispatcherIO
-
-@Retention(AnnotationRetention.BINARY)
-@Qualifier
-annotation class DispatcherDefault
