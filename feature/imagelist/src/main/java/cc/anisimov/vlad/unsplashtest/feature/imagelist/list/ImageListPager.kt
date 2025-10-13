@@ -1,6 +1,6 @@
 package cc.anisimov.vlad.unsplashtest.feature.imagelist.list
 
-import cc.anisimov.vlad.unsplashtest.core.ui.util.tryCoroutine
+import cc.anisimov.vlad.core.common.util.tryCoroutine
 import cc.anisimov.vlad.unsplashtest.domain.interactor.GetLatestPhotosPageInteractor
 import cc.anisimov.vlad.unsplashtest.domain.model.Photo
 import kotlinx.coroutines.ExperimentalCoroutinesApi

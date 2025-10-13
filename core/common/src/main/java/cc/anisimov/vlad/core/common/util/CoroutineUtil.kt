@@ -1,4 +1,4 @@
-package cc.anisimov.vlad.unsplashtest.core.ui.util
+package cc.anisimov.vlad.core.common.util
 
 import kotlin.coroutines.cancellation.CancellationException
 
