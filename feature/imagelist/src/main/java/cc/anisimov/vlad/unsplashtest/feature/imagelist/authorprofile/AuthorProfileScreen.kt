@@ -20,8 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import cc.anisimov.vlad.unsplashtest.core.ui.R
 import cc.anisimov.vlad.unsplashtest.core.ui.base.UIEvent
-import cc.anisimov.vlad.unsplashtest.core.ui.base.component.UrlImage
 import cc.anisimov.vlad.unsplashtest.core.ui.base.handleEvents
+import cc.anisimov.vlad.unsplashtest.core.ui.component.UrlImage
 import cc.anisimov.vlad.unsplashtest.core.ui.theme.UnsplashTestTheme
 import cc.anisimov.vlad.unsplashtest.feature.imagelist.authorprofile.component.AuthorProfileScreenTopAppBar
 import cc.anisimov.vlad.unsplashtest.feature.imagelist.model.UserUi

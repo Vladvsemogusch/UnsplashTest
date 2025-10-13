@@ -1,4 +1,4 @@
-package cc.anisimov.vlad.unsplashtest.core.ui.base.component
+package cc.anisimov.vlad.unsplashtest.core.ui.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
