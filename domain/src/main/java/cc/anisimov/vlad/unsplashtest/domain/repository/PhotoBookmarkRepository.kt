@@ -4,7 +4,7 @@ import cc.anisimov.vlad.unsplashtest.domain.model.dto.PhotoBookmarkDto
 import kotlinx.coroutines.flow.Flow
 
 interface PhotoBookmarkRepository {
-    fun getAllBookmarks(): Flow<List<PhotoBookmarkDto>>
+    fun getBookmarksByPhotoIdsFlow(photoIds: List<String>): Flow<List<PhotoBookmarkDto>>
 
     suspend fun addPhotoBookmark(photoId: String)
 

@@ -10,7 +10,8 @@ class PhotoBookmarkLocalDataSource
     constructor(
         private val photoBookmarkDao: PhotoBookmarkDao,
     ) {
-        fun getAllBookmarks(): Flow<List<PhotoBookmarkEntity>> = photoBookmarkDao.getAllBookmarksFlow()
+    fun getBookmarksByPhotoIdsFlow(photoIds: List<String>): Flow<List<PhotoBookmarkEntity>> =
+        photoBookmarkDao.getBookmarksByPhotoIdsFlow(photoIds)
 
         suspend fun addPhotoBookmark(photoId: String) {
             val photoBookmark = PhotoBookmarkEntity(photoId)

@@ -16,6 +16,6 @@ interface PhotoBookmarkDao {
     @Delete
     suspend fun deleteBookmark(bookmark: PhotoBookmarkEntity)
 
-    @Query("SELECT * from photo_bookmark")
-    fun getAllBookmarksFlow(): Flow<List<PhotoBookmarkEntity>>
+    @Query("SELECT photo_id FROM photo_bookmark WHERE photo_id IN (:photoIds)")
+    fun getBookmarksByPhotoIdsFlow(photoIds: List<String>): Flow<List<PhotoBookmarkEntity>>
 }

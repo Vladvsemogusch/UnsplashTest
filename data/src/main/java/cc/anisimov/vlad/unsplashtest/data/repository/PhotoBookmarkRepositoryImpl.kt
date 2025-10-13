@@ -18,9 +18,9 @@ constructor(
     private val bookmarkMapper: EntityPhotoBookmarkMapper,
     @param:DispatcherIO private val dispatcher: CoroutineDispatcher,
 ) : PhotoBookmarkRepository {
-    override fun getAllBookmarks(): Flow<List<PhotoBookmarkDto>> =
+    override fun getBookmarksByPhotoIdsFlow(photoIds: List<String>): Flow<List<PhotoBookmarkDto>> =
         photoBookmarkLocalDataSource
-            .getAllBookmarks()
+            .getBookmarksByPhotoIdsFlow(photoIds)
             .map { entityPhotoBookmarkList -> bookmarkMapper.map(entityPhotoBookmarkList) }
 
     override suspend fun addPhotoBookmark(photoId: String) =

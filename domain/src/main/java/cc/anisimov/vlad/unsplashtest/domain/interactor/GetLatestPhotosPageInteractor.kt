@@ -22,7 +22,8 @@ constructor(
     suspend operator fun invoke(page: Int): Flow<List<Photo>> =
         withContext(dispatcher) {
             val photoModelsDto = photoRepository.getLatestPhotos(page)
-            val photoBookmarksDtoFlow = bookmarkRepository.getAllBookmarks()
+            val photoIds = photoModelsDto.map { it.id }
+            val photoBookmarksDtoFlow = bookmarkRepository.getBookmarksByPhotoIdsFlow(photoIds)
             photoBookmarksDtoFlow.map { photoMapper.map(photoModelsDto, it) }
         }
 }
