@@ -28,6 +28,8 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            merges += "META-INF/LICENSE.md"
+            merges += "META-INF/LICENSE-notice.md"
         }
     }
 
@@ -52,10 +54,10 @@ ksp {
 }
 
 dependencies {
-    implementation(project(":feature:imagelist"))
-    implementation(project(":data"))
-    implementation(project(":domain"))
-    implementation(project(":core:ui"))
+    implementation(projects.feature.imagelist)
+    implementation(projects.data)
+    implementation(projects.domain)
+    implementation(projects.core.ui)
 
     implementation(libs.bundles.compose)
     implementation(libs.bundles.hilt)

@@ -13,13 +13,13 @@ data class UserUi(
     val profileImageUrl: String?,
 ) : Parcelable {
     companion object {
-        val stub by lazy {
-            UserUi(
-                id = "1",
-                name = "John Smith",
-                bio = "Bio text",
-                profileImageUrl = null,
-            )
-        }
+        val stub
+            get() =
+                UserUi(
+                    id = "1",
+                    name = "John Smith",
+                    bio = "Bio text",
+                    profileImageUrl = "https://example.com/image.jpg",
+                )
     }
 }

@@ -14,7 +14,6 @@ constructor(
             id = photo.id,
             description = photo.description,
             url = photo.url,
-            authorName = photo.authorName,
             author = userMapper.map(photo.author),
             isBookmarked = photo.isBookmarked,
         )

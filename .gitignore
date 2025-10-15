@@ -1,5 +1,6 @@
 /local.properties
 /.idea
+/.kotlin
 */build
 /build
 */schemas

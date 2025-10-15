@@ -28,6 +28,17 @@ android {
             jvmTarget = JvmTarget.JVM_17
         }
     }
+
+    packaging {
+        resources {
+            merges += "META-INF/LICENSE.md"
+            merges += "META-INF/LICENSE-notice.md"
+        }
+    }
+
+    defaultConfig {
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
 }
 
 ksp {
@@ -38,8 +49,9 @@ ksp {
 }
 
 dependencies {
-    implementation(project(":domain"))
-    implementation(project(":core:ui"))
+    implementation(projects.domain)
+    implementation(projects.core.ui)
+    implementation(projects.core.common)
 
     implementation(libs.bundles.compose)
     implementation(libs.bundles.hilt)
@@ -48,4 +60,9 @@ dependencies {
     ksp(libs.compose.destinations.ksp)
     implementation(libs.kotlin.coroutines)
     implementation(libs.kotlinx.collections.immutable)
+
+    testImplementation(libs.bundles.test)
+    androidTestImplementation(libs.bundles.test.android)
+    testImplementation(testFixtures(projects.core.common))
+    debugImplementation(libs.compose.ui.test.manifest)
 }

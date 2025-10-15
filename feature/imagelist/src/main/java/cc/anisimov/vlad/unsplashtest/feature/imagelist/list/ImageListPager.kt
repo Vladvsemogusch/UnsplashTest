@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.flattenMerge
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.runningFold
@@ -35,7 +36,10 @@ constructor(
                     .apply {
                         newPhotos.forEach { photo -> this[photo.id] = photo }
                     }
-            }.map { it.values.toList() }
+            }
+            //  Skip empty map emitted on start
+            .drop(1)
+            .map { it.values.toList() }
 
     private val _isLoadingFlow = MutableStateFlow(false)
     val isLoadingFlow = _isLoadingFlow.asStateFlow()

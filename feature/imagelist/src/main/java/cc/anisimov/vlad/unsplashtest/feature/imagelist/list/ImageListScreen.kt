@@ -86,7 +86,7 @@ private suspend fun handleEvent(
 }
 
 @Composable
-private fun ImageListScreen(
+internal fun ImageListScreen(
     screenState: ImageListScreenState,
     screenActions: ImageListScreenActions,
     snackbarHostState: SnackbarHostState,

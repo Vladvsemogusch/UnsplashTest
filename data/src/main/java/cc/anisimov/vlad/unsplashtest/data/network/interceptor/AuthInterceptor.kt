@@ -18,6 +18,6 @@ class AuthInterceptor
 
         companion object {
             //  Should be obfuscated in some way which is beyond the scope of this project
-            private const val CLIENT_ID = "A_EZ1V9bRfQCRXwEmDK_0gVs6nRwXIbrxc8Rd7OB3N0"
+            const val CLIENT_ID = "A_EZ1V9bRfQCRXwEmDK_0gVs6nRwXIbrxc8Rd7OB3N0"
         }
     }

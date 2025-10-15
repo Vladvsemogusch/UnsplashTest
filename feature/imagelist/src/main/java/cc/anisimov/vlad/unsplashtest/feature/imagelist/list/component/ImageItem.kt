@@ -68,7 +68,7 @@ fun ImageItem(
                             shape = MaterialTheme.shapes.small,
                         )
                         .padding(vertical = 4.dp, horizontal = 8.dp),
-                text = photo.authorName,
+                text = photo.author.name,
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onSurface,
             )

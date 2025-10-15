@@ -9,17 +9,16 @@ class DtoPhotoMapper
 @Inject
 constructor() {
     fun map(
-        apiPhotoModels: List<PhotoDto>,
+        dtoPhotoModels: List<PhotoDto>,
         photoBookmarkEntities: List<PhotoBookmarkDto>,
     ): List<Photo> {
         val bookmarkedPhotoIds = photoBookmarkEntities.map { it.photoId }.toHashSet()
-        return apiPhotoModels.map { photo ->
+        return dtoPhotoModels.map { photo ->
             with(photo) {
                 Photo(
                     id = id,
                     description = description,
                     url = urls.small,
-                    authorName = authorName,
                     author = author,
                     isBookmarked = id in bookmarkedPhotoIds,
                 )

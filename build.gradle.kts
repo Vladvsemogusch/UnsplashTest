@@ -9,4 +9,22 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.jvm) apply false
 }
 
-subprojects { plugins.apply("org.jlleitschuh.gradle.ktlint") }
+// Apply to all modules
+subprojects {
+    // KtLint
+    plugins.apply("org.jlleitschuh.gradle.ktlint")
+
+    // Preload Mockk agent for test tasks
+    // See https://openjdk.org/jeps/451
+    tasks.withType<Test>().configureEach {
+        doFirst {
+            val mockkAgent = classpath.find {
+                it.name.contains("byte-buddy-agent")
+            }
+            if (mockkAgent != null) {
+                println("Preload MockK agent (byte-buddy-agent)")
+                jvmArgs("-javaagent:${mockkAgent.absolutePath}")
+            }
+        }
+    }
+}

@@ -6,6 +6,16 @@ data class PhotoDto(
     val id: String,
     val description: String?,
     val urls: PhotoUrlsDto,
-    val authorName: String,
     val author: User,
-)
+) {
+    companion object {
+        val stub
+            get() =
+                PhotoDto(
+                    id = "d1",
+                    description = "Description",
+                    urls = PhotoUrlsDto.stub,
+                    author = User.stub,
+                )
+    }
+}

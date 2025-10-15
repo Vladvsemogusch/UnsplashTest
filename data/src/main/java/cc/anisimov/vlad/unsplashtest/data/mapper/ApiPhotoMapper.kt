@@ -16,7 +16,6 @@ class ApiPhotoMapper
                     id = id,
                     description = description,
                     urls = urlsMapper.map(urls),
-                    authorName = user.name,
                     author = userMapper.map(user),
                 )
             }
