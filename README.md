@@ -90,7 +90,7 @@ Many models expose `companion object` `stub` computed properties for quick test 
 Example:
 
 ```kotlin
-val photo = cc.anisimov.vlad.unsplashtest.domain.model.Photo.stub.copy(id = "43")
+val photo = Photo.stub.copy(id = "43")
 ```
 
 For more complex scenarios small factory helpers in test sources should be created.
