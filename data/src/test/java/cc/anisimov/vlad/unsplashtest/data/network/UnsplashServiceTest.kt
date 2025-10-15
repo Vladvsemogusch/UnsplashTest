@@ -87,7 +87,7 @@ class UnsplashServiceTest {
             try {
                 service.getLatestPhotos(1)
                 fail("Expected SerializationException")
-            } catch (e: SerializationException) {
+            } catch (_: SerializationException) {
                 // expected
             } catch (t: Throwable) {
                 fail("Unexpected exception: $t")
