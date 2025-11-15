@@ -49,8 +49,7 @@ fun ImageItem(
                         .background(
                             color = MaterialTheme.colorScheme.background.copy(alpha = 0.5f),
                             shape = CircleShape,
-                        )
-                        .size(48.dp),
+                        ).size(48.dp),
                 onClick = { screenActions.onBookmarkClick(photo) },
             ) {
                 Image(painter = painterResource(bookmarkIconResId), contentDescription = null)
@@ -62,12 +61,10 @@ fun ImageItem(
                         .padding(16.dp)
                         .clickable {
                             screenActions.onAuthorClick(photo.author)
-                        }
-                        .background(
+                        }.background(
                             color = MaterialTheme.colorScheme.background.copy(alpha = 0.5f),
                             shape = MaterialTheme.shapes.small,
-                        )
-                        .padding(vertical = 4.dp, horizontal = 8.dp),
+                        ).padding(vertical = 4.dp, horizontal = 8.dp),
                 text = photo.author.name,
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onSurface,

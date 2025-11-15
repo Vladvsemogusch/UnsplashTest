@@ -12,18 +12,18 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class GetLatestPhotosPageInteractor
-@Inject
-constructor(
-    private val photoRepository: PhotoRepository,
-    private val bookmarkRepository: PhotoBookmarkRepository,
-    private val photoMapper: DtoPhotoMapper,
-    @param:DispatcherDefault private val dispatcher: CoroutineDispatcher,
-) {
-    suspend operator fun invoke(page: Int): Flow<List<Photo>> =
-        withContext(dispatcher) {
-            val photoModelsDto = photoRepository.getLatestPhotos(page)
-            val photoIds = photoModelsDto.map { it.id }
-            val photoBookmarksDtoFlow = bookmarkRepository.getBookmarksByPhotoIdsFlow(photoIds)
-            photoBookmarksDtoFlow.map { photoMapper.map(photoModelsDto, it) }
-        }
-}
+    @Inject
+    constructor(
+        private val photoRepository: PhotoRepository,
+        private val bookmarkRepository: PhotoBookmarkRepository,
+        private val photoMapper: DtoPhotoMapper,
+        @param:DispatcherDefault private val dispatcher: CoroutineDispatcher,
+    ) {
+        suspend operator fun invoke(page: Int): Flow<List<Photo>> =
+            withContext(dispatcher) {
+                val photoModelsDto = photoRepository.getLatestPhotos(page)
+                val photoIds = photoModelsDto.map { it.id }
+                val photoBookmarksDtoFlow = bookmarkRepository.getBookmarksByPhotoIdsFlow(photoIds)
+                photoBookmarksDtoFlow.map { photoMapper.map(photoModelsDto, it) }
+            }
+    }

@@ -102,8 +102,7 @@ private fun AuthorProfileScreen(
                             .background(
                                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f),
                                 shape = MaterialTheme.shapes.medium,
-                            )
-                            .padding(8.dp),
+                            ).padding(8.dp),
                     text = screenState.bio,
                     style = MaterialTheme.typography.bodyLarge,
                 )
