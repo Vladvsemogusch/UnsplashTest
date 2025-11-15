@@ -12,24 +12,24 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class PhotoBookmarkRepositoryImpl
-@Inject
-constructor(
-    private val photoBookmarkLocalDataSource: PhotoBookmarkLocalDataSource,
-    private val bookmarkMapper: EntityPhotoBookmarkMapper,
-    @param:DispatcherIO private val dispatcher: CoroutineDispatcher,
-) : PhotoBookmarkRepository {
-    override fun getBookmarksByPhotoIdsFlow(photoIds: List<String>): Flow<List<PhotoBookmarkDto>> =
-        photoBookmarkLocalDataSource
-            .getBookmarksByPhotoIdsFlow(photoIds)
-            .map { entityPhotoBookmarkList -> bookmarkMapper.map(entityPhotoBookmarkList) }
+    @Inject
+    constructor(
+        private val photoBookmarkLocalDataSource: PhotoBookmarkLocalDataSource,
+        private val bookmarkMapper: EntityPhotoBookmarkMapper,
+        @param:DispatcherIO private val dispatcher: CoroutineDispatcher,
+    ) : PhotoBookmarkRepository {
+        override fun getBookmarksByPhotoIdsFlow(photoIds: List<String>): Flow<List<PhotoBookmarkDto>> =
+            photoBookmarkLocalDataSource
+                .getBookmarksByPhotoIdsFlow(photoIds)
+                .map { entityPhotoBookmarkList -> bookmarkMapper.map(entityPhotoBookmarkList) }
 
-    override suspend fun addPhotoBookmark(photoId: String) =
-        withContext(dispatcher) {
-            photoBookmarkLocalDataSource.addPhotoBookmark(photoId)
-        }
+        override suspend fun addPhotoBookmark(photoId: String) =
+            withContext(dispatcher) {
+                photoBookmarkLocalDataSource.addPhotoBookmark(photoId)
+            }
 
-    override suspend fun deletePhotoBookmark(photoId: String) =
-        withContext(dispatcher) {
-            photoBookmarkLocalDataSource.deletePhotoBookmark(photoId)
-        }
-}
+        override suspend fun deletePhotoBookmark(photoId: String) =
+            withContext(dispatcher) {
+                photoBookmarkLocalDataSource.deletePhotoBookmark(photoId)
+            }
+    }

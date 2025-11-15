@@ -1,4 +1,4 @@
-package cc.anisimov.vlad.unsplashtest.feature.imagelist.list
+package cc.anisimov.vlad.unsplashtest.feature.imagelist.screen.list
 
 import androidx.compose.runtime.Immutable
 import cc.anisimov.vlad.unsplashtest.feature.imagelist.model.PhotoUi

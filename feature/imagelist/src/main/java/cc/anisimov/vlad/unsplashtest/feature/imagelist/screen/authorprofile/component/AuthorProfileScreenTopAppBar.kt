@@ -1,12 +1,14 @@
-package cc.anisimov.vlad.unsplashtest.feature.imagelist.list.component
+package cc.anisimov.vlad.unsplashtest.feature.imagelist.screen.authorprofile.component
 
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import cc.anisimov.vlad.unsplashtest.core.ui.R
@@ -14,16 +16,23 @@ import cc.anisimov.vlad.unsplashtest.core.ui.theme.UnsplashTestTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ImageListScreenTopAppBar(modifier: Modifier = Modifier) {
+internal fun AuthorProfileScreenTopAppBar(onBackPress: () -> Unit) {
     TopAppBar(
-        modifier = modifier,
         colors =
             TopAppBarDefaults
                 .topAppBarColors()
                 .copy(containerColor = MaterialTheme.colorScheme.primary),
+        navigationIcon = {
+            IconButton(onClick = onBackPress) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_arrow_left),
+                    contentDescription = null,
+                )
+            }
+        },
         title = {
             Text(
-                text = stringResource(id = R.string.app_name),
+                text = stringResource(id = R.string.author_profile),
                 style = MaterialTheme.typography.displayLarge,
             )
         },
@@ -32,8 +41,8 @@ fun ImageListScreenTopAppBar(modifier: Modifier = Modifier) {
 
 @Preview
 @Composable
-private fun ImageListScreenTopAppBarPreview() {
+private fun AuthorProfileScreenTopAppBarPreview() {
     UnsplashTestTheme {
-        ImageListScreenTopAppBar()
+        AuthorProfileScreenTopAppBar(onBackPress = {})
     }
 }

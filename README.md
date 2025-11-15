@@ -8,7 +8,7 @@ Kotlin coroutines/Flow, Room, Hilt, Retrofit. and navigation via Compose Destina
 - Clean architecture split into domain/data/app/feature/core modules
 - UI with Jetpack Compose and immutable UI models
 - DI with Hilt
-- Strong test coverage with MockK, Turbine, MockWebServer, Room in-memory DB
+- Test coverage with MockK, Turbine, MockWebServer, Room in-memory DB
 
 ## Tech stack
 

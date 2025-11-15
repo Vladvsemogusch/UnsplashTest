@@ -37,10 +37,10 @@ class GetLatestPhotosPageInteractorTest {
             // Given
             val page = 1
             coEvery { photoRepository.getLatestPhotos(page) } returns
-                    listOf(
-                        PhotoDto.stub.copy(id = "1"),
-                        PhotoDto.stub.copy(id = "2"),
-                    )
+                listOf(
+                    PhotoDto.stub.copy(id = "1"),
+                    PhotoDto.stub.copy(id = "2"),
+                )
             coEvery {
                 bookmarkRepository.getBookmarksByPhotoIdsFlow(
                     listOf(
@@ -49,15 +49,15 @@ class GetLatestPhotosPageInteractorTest {
                     ),
                 )
             } returns
-                    flowOf(
-                        listOf(
-                            PhotoBookmarkDto("1"),
-                            PhotoBookmarkDto("2"),
-                        ),
-                        listOf(
-                            PhotoBookmarkDto("2"),
-                        ),
-                    )
+                flowOf(
+                    listOf(
+                        PhotoBookmarkDto("1"),
+                        PhotoBookmarkDto("2"),
+                    ),
+                    listOf(
+                        PhotoBookmarkDto("2"),
+                    ),
+                )
 
             val getLatestPhotosPageInteractor =
                 GetLatestPhotosPageInteractor(

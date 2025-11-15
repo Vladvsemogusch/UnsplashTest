@@ -1,4 +1,4 @@
-package cc.anisimov.vlad.unsplashtest.feature.imagelist.authorprofile
+package cc.anisimov.vlad.unsplashtest.feature.imagelist.screen.authorprofile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -23,9 +23,9 @@ import cc.anisimov.vlad.unsplashtest.core.ui.base.UIEvent
 import cc.anisimov.vlad.unsplashtest.core.ui.base.handleEvents
 import cc.anisimov.vlad.unsplashtest.core.ui.component.UrlImage
 import cc.anisimov.vlad.unsplashtest.core.ui.theme.UnsplashTestTheme
-import cc.anisimov.vlad.unsplashtest.feature.imagelist.authorprofile.component.AuthorProfileScreenTopAppBar
 import cc.anisimov.vlad.unsplashtest.feature.imagelist.model.UserUi
 import cc.anisimov.vlad.unsplashtest.feature.imagelist.navigation.ImageListGraph
+import cc.anisimov.vlad.unsplashtest.feature.imagelist.screen.authorprofile.component.AuthorProfileScreenTopAppBar
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -102,8 +102,7 @@ private fun AuthorProfileScreen(
                             .background(
                                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f),
                                 shape = MaterialTheme.shapes.medium,
-                            )
-                            .padding(8.dp),
+                            ).padding(8.dp),
                     text = screenState.bio,
                     style = MaterialTheme.typography.bodyLarge,
                 )

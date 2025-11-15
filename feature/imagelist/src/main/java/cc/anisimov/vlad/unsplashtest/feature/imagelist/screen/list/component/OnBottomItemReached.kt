@@ -1,4 +1,4 @@
-package cc.anisimov.vlad.unsplashtest.feature.imagelist.list.component
+package cc.anisimov.vlad.unsplashtest.feature.imagelist.screen.list.component
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.lazy.LazyListState

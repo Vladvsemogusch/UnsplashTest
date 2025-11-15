@@ -1,4 +1,4 @@
-package cc.anisimov.vlad.unsplashtest.feature.imagelist.list.component
+package cc.anisimov.vlad.unsplashtest.feature.imagelist.screen.list.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,8 +20,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cc.anisimov.vlad.unsplashtest.core.ui.R
 import cc.anisimov.vlad.unsplashtest.core.ui.component.UrlImage
-import cc.anisimov.vlad.unsplashtest.feature.imagelist.list.ImageListScreenActions
 import cc.anisimov.vlad.unsplashtest.feature.imagelist.model.PhotoUi
+import cc.anisimov.vlad.unsplashtest.feature.imagelist.screen.list.ImageListScreenActions
 
 @Composable
 fun ImageItem(
@@ -49,8 +49,7 @@ fun ImageItem(
                         .background(
                             color = MaterialTheme.colorScheme.background.copy(alpha = 0.5f),
                             shape = CircleShape,
-                        )
-                        .size(48.dp),
+                        ).size(48.dp),
                 onClick = { screenActions.onBookmarkClick(photo) },
             ) {
                 Image(painter = painterResource(bookmarkIconResId), contentDescription = null)
@@ -62,12 +61,10 @@ fun ImageItem(
                         .padding(16.dp)
                         .clickable {
                             screenActions.onAuthorClick(photo.author)
-                        }
-                        .background(
+                        }.background(
                             color = MaterialTheme.colorScheme.background.copy(alpha = 0.5f),
                             shape = MaterialTheme.shapes.small,
-                        )
-                        .padding(vertical = 4.dp, horizontal = 8.dp),
+                        ).padding(vertical = 4.dp, horizontal = 8.dp),
                 text = photo.author.name,
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onSurface,

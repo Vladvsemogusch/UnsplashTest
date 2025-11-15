@@ -3,6 +3,7 @@ package cc.anisimov.vlad.unsplashtest.feature.imagelist.list
 import app.cash.turbine.test
 import cc.anisimov.vlad.unsplashtest.domain.interactor.GetLatestPhotosPageInteractor
 import cc.anisimov.vlad.unsplashtest.domain.model.Photo
+import cc.anisimov.vlad.unsplashtest.feature.imagelist.screen.list.ImageListPager
 import io.mockk.coEvery
 import io.mockk.coVerifySequence
 import io.mockk.mockk
@@ -27,19 +28,19 @@ class ImageListPagerTest {
         runTest {
             // Given
             coEvery { getLatestPhotosInteractor.invoke(1) } returns
-                    flowOf(
-                        listOf(
-                            Photo.stub.copy(id = "1"),
-                            Photo.stub.copy(id = "2"),
-                        ),
-                    )
+                flowOf(
+                    listOf(
+                        Photo.stub.copy(id = "1"),
+                        Photo.stub.copy(id = "2"),
+                    ),
+                )
             coEvery { getLatestPhotosInteractor.invoke(2) } returns
-                    flowOf(
-                        listOf(
-                            Photo.stub.copy(id = "2"),
-                            Photo.stub.copy(id = "3"),
-                        ),
-                    )
+                flowOf(
+                    listOf(
+                        Photo.stub.copy(id = "2"),
+                        Photo.stub.copy(id = "3"),
+                    ),
+                )
             val pager = ImageListPager(getLatestPhotosInteractor)
 
             // When
@@ -98,9 +99,9 @@ class ImageListPagerTest {
             // Given
             val testErrorMessage = "test error"
             coEvery { getLatestPhotosInteractor(any()) } throws
-                    IllegalStateException(
-                        testErrorMessage,
-                    )
+                IllegalStateException(
+                    testErrorMessage,
+                )
             val imageListPager = ImageListPager(getLatestPhotosInteractor)
 
             // When (observe errors first to avoid missing emit)

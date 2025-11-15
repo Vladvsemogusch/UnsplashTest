@@ -9,6 +9,9 @@ import cc.anisimov.vlad.unsplashtest.feature.imagelist.mapper.PhotoMapper
 import cc.anisimov.vlad.unsplashtest.feature.imagelist.mapper.UserMapper
 import cc.anisimov.vlad.unsplashtest.feature.imagelist.model.PhotoUi
 import cc.anisimov.vlad.unsplashtest.feature.imagelist.model.UserUi
+import cc.anisimov.vlad.unsplashtest.feature.imagelist.screen.list.ImageListPager
+import cc.anisimov.vlad.unsplashtest.feature.imagelist.screen.list.ImageListScreenEvent
+import cc.anisimov.vlad.unsplashtest.feature.imagelist.screen.list.ImageListViewModel
 import io.mockk.coJustRun
 import io.mockk.coVerify
 import io.mockk.coVerifySequence
