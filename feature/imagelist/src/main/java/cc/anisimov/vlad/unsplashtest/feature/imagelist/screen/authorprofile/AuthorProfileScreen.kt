@@ -1,4 +1,4 @@
-package cc.anisimov.vlad.unsplashtest.feature.imagelist.authorprofile
+package cc.anisimov.vlad.unsplashtest.feature.imagelist.screen.authorprofile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

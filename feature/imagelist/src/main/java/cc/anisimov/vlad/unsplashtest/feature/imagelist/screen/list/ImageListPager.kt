@@ -1,4 +1,4 @@
-package cc.anisimov.vlad.unsplashtest.feature.imagelist.list
+package cc.anisimov.vlad.unsplashtest.feature.imagelist.screen.list
 
 import cc.anisimov.vlad.core.common.util.tryCoroutine
 import cc.anisimov.vlad.unsplashtest.domain.interactor.GetLatestPhotosPageInteractor

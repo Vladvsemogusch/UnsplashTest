@@ -1,4 +1,4 @@
-package cc.anisimov.vlad.unsplashtest.feature.imagelist.list
+package cc.anisimov.vlad.unsplashtest.feature.imagelist.screen.list
 
 import android.content.Context
 import androidx.compose.foundation.layout.Box
