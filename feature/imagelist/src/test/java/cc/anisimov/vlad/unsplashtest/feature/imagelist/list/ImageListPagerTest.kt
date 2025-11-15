@@ -3,6 +3,7 @@ package cc.anisimov.vlad.unsplashtest.feature.imagelist.list
 import app.cash.turbine.test
 import cc.anisimov.vlad.unsplashtest.domain.interactor.GetLatestPhotosPageInteractor
 import cc.anisimov.vlad.unsplashtest.domain.model.Photo
+import cc.anisimov.vlad.unsplashtest.feature.imagelist.screen.list.ImageListPager
 import io.mockk.coEvery
 import io.mockk.coVerifySequence
 import io.mockk.mockk

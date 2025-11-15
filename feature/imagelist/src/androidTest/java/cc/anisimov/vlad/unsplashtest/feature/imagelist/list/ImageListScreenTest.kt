@@ -8,6 +8,9 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import cc.anisimov.vlad.unsplashtest.feature.imagelist.model.PhotoUi
 import cc.anisimov.vlad.unsplashtest.feature.imagelist.model.UserUi
+import cc.anisimov.vlad.unsplashtest.feature.imagelist.screen.list.ImageListScreen
+import cc.anisimov.vlad.unsplashtest.feature.imagelist.screen.list.ImageListScreenActions
+import cc.anisimov.vlad.unsplashtest.feature.imagelist.screen.list.ImageListScreenState
 import kotlinx.collections.immutable.persistentListOf
 import org.junit.Rule
 import org.junit.Test
