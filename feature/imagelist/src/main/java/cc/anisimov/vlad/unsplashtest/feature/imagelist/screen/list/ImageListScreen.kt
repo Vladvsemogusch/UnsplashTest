@@ -27,11 +27,11 @@ import cc.anisimov.vlad.unsplashtest.core.ui.R
 import cc.anisimov.vlad.unsplashtest.core.ui.base.UIEvent
 import cc.anisimov.vlad.unsplashtest.core.ui.base.handleEvents
 import cc.anisimov.vlad.unsplashtest.core.ui.theme.UnsplashTestTheme
-import cc.anisimov.vlad.unsplashtest.feature.imagelist.list.component.ImageItem
-import cc.anisimov.vlad.unsplashtest.feature.imagelist.list.component.ImageListScreenTopAppBar
-import cc.anisimov.vlad.unsplashtest.feature.imagelist.list.component.onBottomItemReached
 import cc.anisimov.vlad.unsplashtest.feature.imagelist.model.PhotoUi
 import cc.anisimov.vlad.unsplashtest.feature.imagelist.navigation.ImageListGraph
+import cc.anisimov.vlad.unsplashtest.feature.imagelist.screen.list.component.ImageItem
+import cc.anisimov.vlad.unsplashtest.feature.imagelist.screen.list.component.ImageListScreenTopAppBar
+import cc.anisimov.vlad.unsplashtest.feature.imagelist.screen.list.component.onBottomItemReached
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.generated.imagelist.destinations.AuthorProfileRouteDestination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator

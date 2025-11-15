@@ -20,8 +20,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cc.anisimov.vlad.unsplashtest.core.ui.R
 import cc.anisimov.vlad.unsplashtest.core.ui.component.UrlImage
-import cc.anisimov.vlad.unsplashtest.feature.imagelist.list.ImageListScreenActions
 import cc.anisimov.vlad.unsplashtest.feature.imagelist.model.PhotoUi
+import cc.anisimov.vlad.unsplashtest.feature.imagelist.screen.list.ImageListScreenActions
 
 @Composable
 fun ImageItem(

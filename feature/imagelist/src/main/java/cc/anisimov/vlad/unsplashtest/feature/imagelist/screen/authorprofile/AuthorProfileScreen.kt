@@ -23,9 +23,9 @@ import cc.anisimov.vlad.unsplashtest.core.ui.base.UIEvent
 import cc.anisimov.vlad.unsplashtest.core.ui.base.handleEvents
 import cc.anisimov.vlad.unsplashtest.core.ui.component.UrlImage
 import cc.anisimov.vlad.unsplashtest.core.ui.theme.UnsplashTestTheme
-import cc.anisimov.vlad.unsplashtest.feature.imagelist.authorprofile.component.AuthorProfileScreenTopAppBar
 import cc.anisimov.vlad.unsplashtest.feature.imagelist.model.UserUi
 import cc.anisimov.vlad.unsplashtest.feature.imagelist.navigation.ImageListGraph
+import cc.anisimov.vlad.unsplashtest.feature.imagelist.screen.authorprofile.component.AuthorProfileScreenTopAppBar
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
