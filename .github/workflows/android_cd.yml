@@ -1,0 +1,41 @@
+name: Android CD
+
+on:
+  push:
+    branches: [ "cd_test" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Run unit tests
+        run: ./gradlew testReleaseUnitTest
+      - name: Decode keystore
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > unsplashTest.jks
+      - name: Build signed release apk
+        run: |
+          ./gradlew assembleRelease \
+            -Pandroid.injected.signing.store.file=unsplashTest.jks \
+            -Pandroid.injected.signing.store.password=${{ secrets.ANDROID_KEYSTORE_PASSWORD }} \
+            -Pandroid.injected.signing.key.alias=${{ secrets.ANDROID_KEY_ALIAS }} \
+            -Pandroid.injected.signing.key.password=${{ secrets.ANDROID_KEY_ALIAS_PASSWORD }}
+      - name: Upload build to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{secrets.FIREBASE_APP_ID}}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_JSON_CREDENTIALS }}
+          groups: testers
+          file: app/build/outputs/apk/release/app-release.apk
