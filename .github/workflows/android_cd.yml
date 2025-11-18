@@ -24,11 +24,11 @@ jobs:
         run: ./gradlew testReleaseUnitTest
       - name: Decode keystore
         run: |
-          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > unsplashTest.jks
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > ${{ github.workspace }}/unsplashTest.jks
       - name: Build signed release apk
         run: |
           ./gradlew assembleRelease \
-            -Pandroid.injected.signing.store.file=unsplashTest.jks \
+            -Pandroid.injected.signing.store.file=${{ github.workspace }}/unsplashTest.jks \
             -Pandroid.injected.signing.store.password=${{ secrets.ANDROID_KEYSTORE_PASSWORD }} \
             -Pandroid.injected.signing.key.alias=${{ secrets.ANDROID_KEY_ALIAS }} \
             -Pandroid.injected.signing.key.password=${{ secrets.ANDROID_KEY_ALIAS_PASSWORD }}
